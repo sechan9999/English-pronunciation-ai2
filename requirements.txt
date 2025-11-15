@@ -3,6 +3,9 @@
 # 핵심 웹 프레임워크
 streamlit>=1.28.0
 
+# 오디오 녹음 (마이크 입력)
+audio-recorder-streamlit>=0.0.8
+
 # 음성 인식 (경량 버전)
 openai-whisper
 SpeechRecognition>=3.10.0
@@ -12,6 +15,7 @@ pronouncing>=0.2.0
 librosa>=0.10.0
 soundfile>=0.12.1
 numpy>=1.24.0
+pydub>=0.25.1
 
 # 유틸리티
 requests>=2.31.0

@@ -7,6 +7,7 @@ import streamlit as st
 import tempfile
 import os
 from pronunciation_analyzer import PronunciationAnalyzer
+from audio_recorder_streamlit import audio_recorder
 
 # 페이지 설정
 st.set_page_config(
@@ -125,10 +126,43 @@ with col1:
             audio_file = uploaded_file
             st.audio(uploaded_file, format='audio/wav')
     else:
-        # 브라우저 녹음 (Streamlit audio_recorder 사용 가능)
-        st.info("📱 녹음 기능은 브라우저의 마이크 권한이 필요합니다")
-        # audio_recorder 대신 파일 업로드로 대체 (데모용)
-        st.warning("현재 데모 버전에서는 파일 업로드를 사용해주세요")
+        # 실시간 마이크 녹음
+        st.info("🎤 아래 버튼을 눌러 녹음을 시작하세요")
+        
+        # 첫 사용 안내
+        with st.expander("📱 마이크 권한 안내"):
+            st.markdown("""
+            **처음 사용하시는 경우:**
+            1. 녹음 버튼을 누르면 브라우저에서 마이크 권한을 요청합니다
+            2. "허용" 버튼을 클릭해주세요
+            3. 마이크 아이콘이 빨간색으로 바뀌면 녹음 시작
+            4. 문장을 또박또박 읽어주세요
+            5. 다시 버튼을 눌러 녹음 종료
+            
+            **녹음 팁:**
+            - 조용한 환경에서 녹음하세요
+            - 마이크에 너무 가까이 말하지 마세요 (10-20cm 거리)
+            - 자연스러운 속도로 말씀해주세요
+            - 배경 소음이 있으면 정확도가 떨어질 수 있습니다
+            """)
+        
+        # 오디오 녹음 컴포넌트
+        audio_bytes = audio_recorder(
+            text="🎙️ 녹음 시작/중지",
+            recording_color="#e74c3c",
+            neutral_color="#6aa84f",
+            icon_name="microphone",
+            icon_size="3x",
+        )
+        
+        if audio_bytes:
+            st.success("✅ 녹음 완료!")
+            st.audio(audio_bytes, format='audio/wav')
+            
+            # 녹음된 오디오를 임시 파일로 저장
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_audio:
+                tmp_audio.write(audio_bytes)
+                audio_file = tmp_audio.name
     
     # 분석 버튼
     analyze_button = st.button(
@@ -143,10 +177,17 @@ with col2:
     
     if analyze_button and audio_file:
         with st.spinner("AI가 발음을 분석하고 있습니다..."):
-            # 임시 파일로 저장
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_file:
-                tmp_file.write(audio_file.read())
-                tmp_path = tmp_file.name
+            # 파일 경로 또는 파일 객체 처리
+            if isinstance(audio_file, str):
+                # 녹음된 파일 (이미 경로)
+                tmp_path = audio_file
+                cleanup_needed = False
+            else:
+                # 업로드된 파일 (파일 객체)
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_file:
+                    tmp_file.write(audio_file.read())
+                    tmp_path = tmp_file.name
+                cleanup_needed = True
             
             try:
                 # 전체 분석 실행
@@ -242,8 +283,8 @@ with col2:
                 st.info("오디오 파일 형식을 확인해주세요. WAV 파일을 권장합니다.")
             
             finally:
-                # 임시 파일 삭제
-                if os.path.exists(tmp_path):
+                # 임시 파일 삭제 (업로드된 파일만)
+                if cleanup_needed and os.path.exists(tmp_path):
                     os.remove(tmp_path)
     
     elif not audio_file:

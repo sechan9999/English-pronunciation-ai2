@@ -1,35 +1,17 @@
-# 영어 발음 분석 시스템 - Python 의존성
+# 영어 발음 분석 시스템 - Streamlit Cloud 최적화
 
-# 음성 인식 및 처리
-openai-whisper>=20230314
-SpeechRecognition>=3.10.0
-pocketsphinx>=5.0.0
-pronouncing>=0.2.0
-
-# 오디오 처리
-librosa>=0.10.0
-soundfile>=0.12.1
-pydub>=0.25.1
-numpy>=1.24.0
-scipy>=1.10.0
-
-# 웹 프레임워크
-flask>=2.3.0
-flask-cors>=4.0.0
+# 핵심 웹 프레임워크
 streamlit>=1.28.0
 
+# 음성 인식 (경량 버전)
+openai-whisper
+SpeechRecognition>=3.10.0
+pronouncing>=0.2.0
+
+# 오디오 처리 (필수만)
+librosa>=0.10.0
+soundfile>=0.12.1
+numpy>=1.24.0
+
 # 유틸리티
-python-dotenv>=1.0.0
 requests>=2.31.0
-
-# 텍스트 처리
-difflib-extra>=0.1.0
-
-# TTS (선택)
-gtts>=2.4.0
-pyttsx3>=2.90
-
-# 개발 도구
-pytest>=7.4.0
-black>=23.7.0
-flake8>=6.1.0

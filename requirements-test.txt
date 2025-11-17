@@ -1,0 +1,37 @@
+# Testing Dependencies for English Pronunciation AI
+# Install with: pip install -r requirements-test.txt
+
+# Core Testing Framework
+pytest>=7.4.0
+pytest-cov>=4.1.0                # Coverage reporting
+pytest-mock>=3.11.1              # Mocking utilities
+pytest-xdist>=3.3.1              # Parallel test execution
+pytest-timeout>=2.1.0            # Test timeout management
+
+# Test Utilities
+requests-mock>=1.11.0            # Mock HTTP requests
+faker>=19.2.0                    # Generate fake test data
+hypothesis>=6.82.0               # Property-based testing
+freezegun>=1.2.2                 # Mock datetime
+
+# Performance Testing
+pytest-benchmark>=4.0.0          # Performance benchmarking
+locust>=2.15.0                   # Load testing (optional)
+
+# Coverage and Reporting
+coverage>=7.2.0                  # Coverage measurement
+pytest-html>=3.2.0               # HTML test reports
+
+# Code Quality
+pytest-flake8>=1.1.1             # Style checking in tests
+pytest-mypy>=0.10.3              # Type checking in tests
+
+# API Testing
+pytest-flask>=1.2.0              # Flask-specific testing utilities
+
+# Audio Testing (if needed for fixtures)
+pydub>=0.25.1                    # Audio file manipulation
+
+# Debugging
+pytest-pudb>=0.7.0               # Better debugging
+ipdb>=0.13.13                    # IPython debugger

@@ -1,0 +1,505 @@
+{
+  "questions": [
+    {
+      "id": "q001",
+      "category": "self-introduction",
+      "industry": "general",
+      "difficulty": "beginner",
+      "question": "Tell me about yourself",
+      "question_ko": "자기소개를 해주세요",
+      "tips": [
+        "Keep it 1-2 minutes",
+        "Focus on relevant experience",
+        "End with why you're interested in this role"
+      ],
+      "keywords": ["background", "experience", "skills", "interest", "education"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What made you interested in this field?",
+        "Tell me more about your recent project"
+      ]
+    },
+    {
+      "id": "q002",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you faced a difficult challenge at work",
+      "question_ko": "업무에서 어려운 도전에 직면했을 때에 대해 말해주세요",
+      "tips": [
+        "Use STAR method (Situation, Task, Action, Result)",
+        "Be specific about your role",
+        "Highlight the positive outcome"
+      ],
+      "keywords": ["challenge", "problem-solving", "overcome", "result", "learned"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What would you do differently?",
+        "How did this experience change your approach?"
+      ]
+    },
+    {
+      "id": "q003",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Describe a situation where you had to work with a difficult team member",
+      "question_ko": "어려운 팀원과 함께 일해야 했던 상황을 설명해주세요",
+      "tips": [
+        "Show empathy and professionalism",
+        "Focus on resolution, not blame",
+        "Demonstrate communication skills"
+      ],
+      "keywords": ["teamwork", "conflict", "communication", "resolution", "collaboration"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What did you learn from this experience?",
+        "How do you handle conflicts now?"
+      ]
+    },
+    {
+      "id": "q004",
+      "category": "strengths-weaknesses",
+      "industry": "general",
+      "difficulty": "beginner",
+      "question": "What are your greatest strengths?",
+      "question_ko": "당신의 가장 큰 강점은 무엇인가요?",
+      "tips": [
+        "Choose 2-3 relevant strengths",
+        "Provide specific examples",
+        "Connect to the job requirements"
+      ],
+      "keywords": ["strengths", "skills", "abilities", "examples", "value"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "How have these strengths helped you succeed?",
+        "Can you give me a specific example?"
+      ]
+    },
+    {
+      "id": "q005",
+      "category": "strengths-weaknesses",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "What is your greatest weakness?",
+      "question_ko": "당신의 가장 큰 약점은 무엇인가요?",
+      "tips": [
+        "Be honest but strategic",
+        "Show self-awareness",
+        "Explain how you're working to improve"
+      ],
+      "keywords": ["weakness", "improvement", "learning", "development", "growth"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What steps are you taking to improve?",
+        "How has this affected your work?"
+      ]
+    },
+    {
+      "id": "q006",
+      "category": "situational",
+      "industry": "general",
+      "difficulty": "advanced",
+      "question": "How would you handle a situation where you disagree with your manager's decision?",
+      "question_ko": "상사의 결정에 동의하지 않는 상황을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Show respect for authority",
+        "Demonstrate diplomatic communication",
+        "Provide a balanced perspective"
+      ],
+      "keywords": ["disagreement", "communication", "respect", "perspective", "resolution"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What if they still disagree?",
+        "Have you had this experience before?"
+      ]
+    },
+    {
+      "id": "q007",
+      "category": "career-goals",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Where do you see yourself in five years?",
+      "question_ko": "5년 후 자신의 모습을 어떻게 보시나요?",
+      "tips": [
+        "Show ambition but be realistic",
+        "Align with company growth",
+        "Demonstrate commitment"
+      ],
+      "keywords": ["goals", "growth", "development", "ambition", "future"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What steps will you take to get there?",
+        "How does this role fit into your plan?"
+      ]
+    },
+    {
+      "id": "q008",
+      "category": "company-role",
+      "industry": "general",
+      "difficulty": "beginner",
+      "question": "Why do you want to work for our company?",
+      "question_ko": "우리 회사에서 일하고 싶은 이유는 무엇인가요?",
+      "tips": [
+        "Research the company beforehand",
+        "Connect your values with company values",
+        "Show genuine interest"
+      ],
+      "keywords": ["company", "values", "culture", "mission", "interest"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What do you know about our products?",
+        "What attracts you to our industry?"
+      ]
+    },
+    {
+      "id": "q009",
+      "category": "company-role",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Why should we hire you?",
+      "question_ko": "왜 우리가 당신을 채용해야 하나요?",
+      "tips": [
+        "Highlight unique value proposition",
+        "Connect skills to job requirements",
+        "Show enthusiasm"
+      ],
+      "keywords": ["skills", "value", "fit", "experience", "contribution"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What makes you different from other candidates?",
+        "What will you bring to the team?"
+      ]
+    },
+    {
+      "id": "q010",
+      "category": "behavioral",
+      "industry": "tech",
+      "difficulty": "advanced",
+      "question": "Tell me about a time when you had to learn a new technology quickly",
+      "question_ko": "새로운 기술을 빠르게 배워야 했던 경험에 대해 말해주세요",
+      "tips": [
+        "Emphasize learning ability",
+        "Show resourcefulness",
+        "Demonstrate results"
+      ],
+      "keywords": ["learning", "technology", "adaptability", "problem-solving", "results"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How do you typically learn new things?",
+        "What resources did you use?"
+      ]
+    },
+    {
+      "id": "q011",
+      "category": "technical",
+      "industry": "tech",
+      "difficulty": "intermediate",
+      "question": "Explain a complex technical concept to a non-technical person",
+      "question_ko": "복잡한 기술 개념을 비기술자에게 설명해주세요",
+      "tips": [
+        "Use analogies and simple language",
+        "Avoid jargon",
+        "Check for understanding"
+      ],
+      "keywords": ["explanation", "communication", "simplification", "clarity", "analogy"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "How do you ensure they understand?",
+        "Give me another example"
+      ]
+    },
+    {
+      "id": "q012",
+      "category": "behavioral",
+      "industry": "tech",
+      "difficulty": "advanced",
+      "question": "Describe a situation where you had to debug a critical production issue",
+      "question_ko": "중요한 프로덕션 이슈를 디버깅해야 했던 상황을 설명해주세요",
+      "tips": [
+        "Show problem-solving methodology",
+        "Demonstrate calmness under pressure",
+        "Highlight the resolution process"
+      ],
+      "keywords": ["debugging", "problem-solving", "pressure", "methodology", "resolution"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "How did you prevent similar issues?",
+        "What was the impact on users?"
+      ]
+    },
+    {
+      "id": "q013",
+      "category": "behavioral",
+      "industry": "business",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you had to persuade others to see your point of view",
+      "question_ko": "다른 사람들을 설득해야 했던 경험에 대해 말해주세요",
+      "tips": [
+        "Show influence and communication skills",
+        "Demonstrate logical reasoning",
+        "Respect different perspectives"
+      ],
+      "keywords": ["persuasion", "influence", "communication", "reasoning", "consensus"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What resistance did you face?",
+        "How did you build consensus?"
+      ]
+    },
+    {
+      "id": "q014",
+      "category": "behavioral",
+      "industry": "business",
+      "difficulty": "advanced",
+      "question": "Describe a situation where you had to make a difficult business decision",
+      "question_ko": "어려운 비즈니스 결정을 내려야 했던 상황을 설명해주세요",
+      "tips": [
+        "Show analytical thinking",
+        "Demonstrate decision-making process",
+        "Explain trade-offs considered"
+      ],
+      "keywords": ["decision", "analysis", "trade-offs", "impact", "outcome"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "What data did you consider?",
+        "Would you make the same decision again?"
+      ]
+    },
+    {
+      "id": "q015",
+      "category": "situational",
+      "industry": "business",
+      "difficulty": "advanced",
+      "question": "How would you handle a situation where a project is behind schedule and over budget?",
+      "question_ko": "프로젝트가 일정보다 지연되고 예산을 초과하는 상황을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Show project management skills",
+        "Demonstrate problem-solving",
+        "Emphasize communication"
+      ],
+      "keywords": ["project management", "problem-solving", "communication", "prioritization", "stakeholders"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What would you do differently?",
+        "How would you communicate this to stakeholders?"
+      ]
+    },
+    {
+      "id": "q016",
+      "category": "behavioral",
+      "industry": "marketing",
+      "difficulty": "intermediate",
+      "question": "Tell me about a successful campaign you led or contributed to",
+      "question_ko": "성공적으로 이끌거나 기여한 캠페인에 대해 말해주세요",
+      "tips": [
+        "Provide specific metrics",
+        "Explain your role clearly",
+        "Highlight creativity and results"
+      ],
+      "keywords": ["campaign", "success", "metrics", "creativity", "results"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What made it successful?",
+        "What challenges did you face?"
+      ]
+    },
+    {
+      "id": "q017",
+      "category": "technical",
+      "industry": "marketing",
+      "difficulty": "intermediate",
+      "question": "How do you measure the success of a marketing campaign?",
+      "question_ko": "마케팅 캠페인의 성공을 어떻게 측정하나요?",
+      "tips": [
+        "Mention specific KPIs",
+        "Show analytical thinking",
+        "Connect to business goals"
+      ],
+      "keywords": ["metrics", "KPIs", "ROI", "analytics", "success"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What tools do you use?",
+        "How do you report results?"
+      ]
+    },
+    {
+      "id": "q018",
+      "category": "behavioral",
+      "industry": "sales",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you lost a sale. What did you learn?",
+      "question_ko": "판매에 실패한 경험에 대해 말해주세요. 무엇을 배웠나요?",
+      "tips": [
+        "Show resilience and learning",
+        "Be honest about mistakes",
+        "Demonstrate growth mindset"
+      ],
+      "keywords": ["failure", "learning", "resilience", "improvement", "growth"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How did you bounce back?",
+        "What would you do differently?"
+      ]
+    },
+    {
+      "id": "q019",
+      "category": "situational",
+      "industry": "sales",
+      "difficulty": "advanced",
+      "question": "How would you handle an angry customer who is threatening to cancel their contract?",
+      "question_ko": "계약을 취소하겠다고 위협하는 화난 고객을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Show empathy and active listening",
+        "Demonstrate problem-solving",
+        "Focus on customer satisfaction"
+      ],
+      "keywords": ["customer service", "conflict resolution", "empathy", "retention", "solution"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What if they still want to cancel?",
+        "How would you prevent this situation?"
+      ]
+    },
+    {
+      "id": "q020",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Describe a time when you had to work under tight deadlines",
+      "question_ko": "촉박한 마감일 내에 일해야 했던 경험을 설명해주세요",
+      "tips": [
+        "Show time management skills",
+        "Demonstrate ability to prioritize",
+        "Emphasize results delivered"
+      ],
+      "keywords": ["deadline", "pressure", "prioritization", "time management", "delivery"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How do you manage stress?",
+        "What tools helped you?"
+      ]
+    },
+    {
+      "id": "q021",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "advanced",
+      "question": "Tell me about a time when you failed and what you learned from it",
+      "question_ko": "실패한 경험과 그로부터 배운 것에 대해 말해주세요",
+      "tips": [
+        "Be genuinely honest",
+        "Focus on learning and growth",
+        "Show how you applied the lesson"
+      ],
+      "keywords": ["failure", "learning", "growth", "resilience", "improvement"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How did this change your approach?",
+        "What would you do differently?"
+      ]
+    },
+    {
+      "id": "q022",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Describe a situation where you had to take initiative",
+      "question_ko": "주도적으로 행동해야 했던 상황을 설명해주세요",
+      "tips": [
+        "Show proactive behavior",
+        "Demonstrate leadership",
+        "Highlight positive outcomes"
+      ],
+      "keywords": ["initiative", "proactive", "leadership", "ownership", "results"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What motivated you to take initiative?",
+        "How was it received?"
+      ]
+    },
+    {
+      "id": "q023",
+      "category": "behavioral",
+      "industry": "tech",
+      "difficulty": "advanced",
+      "question": "Tell me about a time when you had to balance technical debt with new feature development",
+      "question_ko": "기술 부채와 새로운 기능 개발의 균형을 맞춰야 했던 경험에 대해 말해주세요",
+      "tips": [
+        "Show strategic thinking",
+        "Demonstrate technical judgment",
+        "Explain trade-offs considered"
+      ],
+      "keywords": ["technical debt", "prioritization", "trade-offs", "strategy", "balance"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "How did you decide what to prioritize?",
+        "What was the outcome?"
+      ]
+    },
+    {
+      "id": "q024",
+      "category": "situational",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "How would you handle receiving critical feedback from a colleague?",
+      "question_ko": "동료로부터 비판적인 피드백을 받는 것을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Show openness to feedback",
+        "Demonstrate emotional intelligence",
+        "Emphasize growth mindset"
+      ],
+      "keywords": ["feedback", "growth", "learning", "professionalism", "improvement"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "Can you give me an example?",
+        "How do you typically respond to criticism?"
+      ]
+    },
+    {
+      "id": "q025",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "advanced",
+      "question": "Describe a situation where you had to lead a team through a major change",
+      "question_ko": "팀을 큰 변화로 이끌어야 했던 상황을 설명해주세요",
+      "tips": [
+        "Show change management skills",
+        "Demonstrate leadership",
+        "Address resistance handling"
+      ],
+      "keywords": ["change management", "leadership", "communication", "resistance", "adaptation"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "What resistance did you encounter?",
+        "How did you maintain morale?"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "total_questions": 25,
+    "categories": {
+      "self-introduction": 1,
+      "behavioral": 14,
+      "strengths-weaknesses": 2,
+      "situational": 5,
+      "career-goals": 1,
+      "company-role": 2,
+      "technical": 3
+    },
+    "industries": {
+      "general": 17,
+      "tech": 4,
+      "business": 3,
+      "marketing": 2,
+      "sales": 2
+    },
+    "difficulty_levels": {
+      "beginner": 3,
+      "intermediate": 14,
+      "advanced": 8
+    },
+    "last_updated": "2025-11-17"
+  }
+}

@@ -41,7 +41,10 @@ An AI-powered English pronunciation analysis platform that provides real-time fe
 - Word-level and phoneme-level analysis
 - Prosody analysis (speaking rate, pitch variation, energy)
 - Practice sentence library (daily/business/travel)
+- **Interview practice mode with 50 interview questions** (NEW)
+- **AI-powered interview answer analysis** (NEW)
 - REST API for integration with other applications
+- **Comprehensive test suite with 80%+ coverage target** (NEW)
 
 ---
 
@@ -61,19 +64,37 @@ English-pronunciation-ai2/
 │   ├── /api/transcribe          # STT only
 │   ├── /api/score               # Text-based scoring
 │   ├── /api/phonemes            # Phoneme extraction
-│   └── /api/practice-sentences  # Get practice sentences
+│   ├── /api/practice-sentences  # Get practice sentences
+│   ├── /api/interview/*         # Interview practice endpoints (NEW)
+│   └── /api/interview/session/* # Mock interview session management (NEW)
 │
 ├── app.py                       # Streamlit web application
-│   ├── UI components            # User interface
-│   ├── Audio recording          # Microphone integration
+│   ├── Tab 1: Pronunciation     # Pronunciation practice tab
+│   ├── Tab 2: Interview         # Interview practice tab (NEW)
 │   └── Results visualization    # Score display and feedback
+│
+├── interview/                   # Interview practice module (NEW)
+│   ├── interview_analyzer.py   # Interview answer analysis
+│   ├── interview_questions.json # 50 interview questions database
+│   └── API_DOCUMENTATION.md    # Interview API docs
+│
+├── tests/                       # Test suite (NEW)
+│   ├── conftest.py              # Pytest fixtures and configuration
+│   ├── test_pronunciation_analyzer_example.py  # 70+ example tests
+│   └── README.md                # Testing guide
 │
 ├── demo.py                      # CLI demo and testing
 ├── test_api.py                  # API integration tests
+├── test_interview_api.py        # Interview API tests (NEW)
 │
 ├── requirements.txt             # Python dependencies
+├── requirements-test.txt        # Testing dependencies (NEW)
 ├── packages.txt                 # System packages (FFmpeg)
+├── pytest.ini                   # Pytest configuration (NEW)
 ├── .env.example                 # Environment configuration template
+│
+├── TEST_COVERAGE_ANALYSIS.md    # Test coverage roadmap (NEW)
+├── CLAUDE.md                    # This file - AI assistant guide
 │
 └── Documentation/
     ├── README.md                # Main documentation (Korean)
@@ -91,23 +112,26 @@ English-pronunciation-ai2/
 ├──────────────────┬──────────────────┬──────────────────┤
 │  Streamlit UI    │  Flask REST API  │  Future: Mobile  │
 │  (app.py)        │  (api.py)        │                  │
+│  - Pronunciation │  - Pronunciation │                  │
+│  - Interview     │  - Interview     │                  │
 └──────────────────┴──────────────────┴──────────────────┘
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────┐
 │              BUSINESS LOGIC LAYER                       │
-│        PronunciationAnalyzer Class                      │
-│        (pronunciation_analyzer.py)                      │
+│                                                         │
+│  PronunciationAnalyzer          InterviewAnalyzer      │
+│  (pronunciation_analyzer.py)    (interview/...)        │
 │                                                         │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐            │
 │  │   STT    │  │ Scoring  │  │ Feedback │            │
 │  │ Whisper  │  │  Engine  │  │Generator │            │
 │  └──────────┘  └──────────┘  └──────────┘            │
 │                                                         │
-│  ┌──────────┐  ┌──────────┐                           │
-│  │ Phoneme  │  │ Prosody  │                           │
-│  │ Analyzer │  │ Analyzer │                           │
-│  └──────────┘  └──────────┘                           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐            │
+│  │ Phoneme  │  │ Prosody  │  │  Filler  │            │
+│  │ Analyzer │  │ Analyzer │  │  Detect  │            │
+│  └──────────┘  └──────────┘  └──────────┘            │
 └─────────────────────────────────────────────────────────┘
                          │
                          ▼
@@ -116,7 +140,9 @@ English-pronunciation-ai2/
 ├──────────────┬──────────────┬──────────────────────────┤
 │   librosa    │  CMU Dict    │  Whisper Models          │
 │   (audio)    │  (phonemes)  │  (ML models)             │
-└──────────────┴──────────────┴──────────────────────────┘
+│              │              │                          │
+│  Interview Questions (50)   │  Practice Sentences      │
+└─────────────────────────────┴──────────────────────────┘
 ```
 
 ---
@@ -206,7 +232,7 @@ overall_score = (word_accuracy * 0.6) + (phoneme_similarity * 0.4)
 
 **Framework:** Flask with CORS enabled
 
-#### Endpoints:
+#### Pronunciation Endpoints:
 
 | Method | Endpoint | Purpose | Input | Output |
 |--------|----------|---------|-------|--------|
@@ -216,6 +242,18 @@ overall_score = (word_accuracy * 0.6) + (phoneme_similarity * 0.4)
 | POST | `/api/score` | Text scoring | `{reference_text, spoken_text}` (JSON) | `{score, details, feedback}` |
 | POST | `/api/phonemes` | Extract phonemes | `{text}` (JSON) | `{phonemes, phoneme_count}` |
 | GET | `/api/practice-sentences` | Get practice sentences | `?level=&category=` | List of sentences |
+
+#### Interview Endpoints (NEW):
+
+| Method | Endpoint | Purpose | Input | Output |
+|--------|----------|---------|-------|--------|
+| GET | `/api/interview/questions` | Get filtered questions | `?category=&difficulty=&industry=&limit=` | List of questions |
+| GET | `/api/interview/questions/random` | Get random questions | `?count=&category=&difficulty=&industry=` | Random questions |
+| POST | `/api/interview/analyze` | Analyze interview answer | `audio`, `question_id` or `question_text` | Analysis + scores + feedback |
+| POST | `/api/interview/session/start` | Start mock interview | `{interview_type, num_questions, filters...}` | Session ID + questions |
+| POST | `/api/interview/session/<id>/answer` | Submit answer in session | `audio`, `question_index` | Scores + next question |
+| GET | `/api/interview/session/<id>/results` | Get session results | Session ID | Complete session analysis |
+| DELETE | `/api/interview/session/<id>` | Delete session | Session ID | Success confirmation |
 
 #### Important Patterns:
 
@@ -290,6 +328,82 @@ audio_bytes = audio_recorder(
 - `demo_interactive_mode()`: Interactive CLI test (demo.py:111)
 - `demo_comparison()`: Compare different proficiency levels (demo.py:153)
 - `show_api_examples()`: Display API usage examples (demo.py:198)
+
+---
+
+### 5. `interview/interview_analyzer.py` - Interview Analysis Engine (NEW)
+
+**Class: `InterviewAnalyzer`**
+
+Comprehensive interview answer analysis with content, structure, and delivery evaluation.
+
+#### Key Methods:
+
+```python
+analyze_interview_answer(audio_path, question, reference_answer=None) -> Dict
+# Complete interview answer analysis
+# Returns: {
+#   'transcription': str,
+#   'duration': float,
+#   'scores': {overall, pronunciation, content, structure, grammar, duration},
+#   'filler_words': {count, words, density},
+#   'feedback': str,
+#   'improvements': list
+# }
+
+evaluate_content(transcription, question) -> float
+# Evaluates answer content based on keywords and length
+# Scoring: Keywords (70%) + Length (30%)
+
+analyze_structure(transcription) -> float
+# Analyzes STAR method (Situation, Task, Action, Result)
+# Returns: 100 (all 4), 85 (3), 70 (2), 50 (1), 30 (0)
+
+detect_fillers(transcription) -> Dict
+# Detects filler words (um, uh, like, you know, etc.)
+# Returns: count, words dict, density (per 100 words)
+
+check_grammar(transcription) -> float
+# Basic grammar checking (capitalization, spacing)
+
+evaluate_duration(actual, ideal) -> float
+# Compares actual vs ideal duration (±30% tolerance)
+```
+
+#### Interview Scoring Weights:
+
+```python
+# Overall interview score calculation
+overall = (
+    pronunciation * 0.20 +  # 20% - Clear speech
+    content * 0.30 +        # 30% - Relevant content (HIGHEST)
+    structure * 0.20 +      # 20% - STAR method
+    grammar * 0.15 +        # 15% - Language accuracy
+    duration * 0.15         # 15% - Time management
+)
+```
+
+#### Interview Questions Database:
+
+**File:** `interview/interview_questions.json`
+
+**50 Questions** organized by:
+- **Categories:** self-introduction (2), behavioral (27), situational (9), strengths-weaknesses (3), career-goals (3), company-role (4), technical (7)
+- **Industries:** general (27), tech (12), business (7), marketing (6), sales (5)
+- **Difficulty:** beginner (10), intermediate (24), advanced (16)
+
+**Each question includes:**
+- ID, category, industry, difficulty
+- Question in English + Korean
+- Tips for answering
+- Keywords for content evaluation
+- Ideal duration (seconds)
+- Follow-up questions
+
+**Utility Functions:**
+- `load_questions_db()`: Load entire database with metadata
+- `load_questions(category, difficulty, industry)`: Filtered questions
+- `get_random_question(filters)`: Random question selection
 
 ---
 
@@ -424,40 +538,114 @@ CORS(app)  # Should be enabled
 
 ## 🧪 Testing Strategy
 
-### Current Testing
+### Current Coverage: ~35% → Target: 80%+
+
+**See `TEST_COVERAGE_ANALYSIS.md` for comprehensive testing roadmap.**
+
+### Test Infrastructure (NEW)
+
+**Pytest Setup:**
+- `pytest.ini` - Pytest configuration with coverage settings
+- `requirements-test.txt` - Testing dependencies (pytest, pytest-cov, pytest-mock, etc.)
+- `tests/conftest.py` - Shared fixtures and test utilities
+- `tests/README.md` - Testing guide and best practices
+
+**Example Tests Available:**
+- `tests/test_pronunciation_analyzer_example.py` - 70+ unit test examples
+  - Perfect match scoring
+  - Edge cases (empty strings, unicode, very long text)
+  - Mocking Whisper and librosa
+  - Parameterized tests
+  - Feedback generation for all score ranges
+
+**Run Tests:**
+```bash
+# Install test dependencies
+pip install -r requirements-test.txt
+
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=. --cov-report=html --cov-report=term
+
+# Run example tests only
+pytest tests/test_pronunciation_analyzer_example.py -v
+```
+
+### Manual Testing
 
 **Manual Testing:**
-1. `python demo.py` - Text-based tests
-2. `python test_api.py` - API integration tests
-3. `streamlit run app.py` - UI testing
+1. `python demo.py` - Text-based pronunciation tests
+2. `python test_api.py` - Pronunciation API integration tests
+3. `python test_interview_api.py` - Interview API integration tests (NEW)
+4. `streamlit run app.py` - UI testing (both tabs)
 
-**API Tests** (`test_api.py`):
-- Health check test (test_api.py:10)
-- Transcription test (test_api.py:16)
-- Scoring test (test_api.py:30)
-- Phoneme extraction test (test_api.py:50)
-- Practice sentences test (test_api.py:66)
+**API Tests:**
+
+**Pronunciation** (`test_api.py`):
+- Health check, transcription, scoring, phonemes, practice sentences
+
+**Interview** (`test_interview_api.py` - NEW):
+- Get questions (with filters)
+- Get random questions
+- Analyze single answer
+- Mock interview sessions (start, submit, results, delete)
+- Error cases (missing audio, invalid session, etc.)
 
 ### Testing Best Practices
 
 **Before committing:**
-1. Run `python demo.py` to verify core logic
-2. Run `python test_api.py` (requires API server running)
-3. Test one feature in Streamlit UI
-4. Check for Python errors: `python -m py_compile *.py`
+1. Run example tests: `pytest tests/test_pronunciation_analyzer_example.py`
+2. Run `python demo.py` to verify core logic
+3. Run `python test_api.py` and `python test_interview_api.py` (requires API server)
+4. Test manually in Streamlit UI (both tabs)
+5. Check for Python errors: `python -m py_compile *.py`
 
 **When adding new features:**
-1. Add test case to `test_api.py` if API-related
-2. Add example to `demo.py` if core logic-related
-3. Manually test in Streamlit app
+1. Write unit tests FIRST (TDD recommended)
+2. Use fixtures from `tests/conftest.py`
+3. Add to example tests or create new test file
+4. Ensure coverage doesn't decrease
+5. Add integration tests to `test_api.py` or `test_interview_api.py`
+6. Manually test in Streamlit app
 
-### Future Testing TODO
+### Test Coverage Roadmap
 
-- [ ] Add pytest unit tests
-- [ ] Add test coverage reports (target: 80%+)
-- [ ] Add CI/CD pipeline with automated tests
-- [ ] Add load testing for API endpoints
-- [ ] Add browser compatibility tests for UI
+**Phase 1 (Weeks 1-2): Foundation - Target 55%**
+- ✅ Set up pytest framework
+- ✅ Create example tests (70+ tests)
+- ⏳ Unit tests for PronunciationAnalyzer (all methods)
+- ⏳ Unit tests for InterviewAnalyzer (all methods)
+- ⏳ Scoring validation tests
+
+**Phase 2 (Week 3): Robustness - Target 70%**
+- ⏳ Edge case tests (empty inputs, unicode, boundaries)
+- ⏳ Error handling tests (dependency failures, file errors)
+- ⏳ Input validation and security tests
+- ⏳ Comprehensive API tests
+
+**Phase 3 (Week 4): Real-World - Target 80%+**
+- ⏳ Audio processing tests with real files
+- ⏳ Performance benchmarks
+- ⏳ End-to-end integration tests
+- ⏳ Load testing
+
+**Status Legend:**
+- ✅ Complete
+- ⏳ In Progress / Planned
+- ❌ Blocked
+
+### Critical Testing Gaps (See TEST_COVERAGE_ANALYSIS.md)
+
+1. 🔴 **CRITICAL:** No unit tests for PronunciationAnalyzer core methods
+2. 🔴 **CRITICAL:** No unit tests for InterviewAnalyzer (649 lines)
+3. 🟠 **HIGH:** No edge case testing (empty strings, unicode, boundaries)
+4. 🟠 **HIGH:** No scoring algorithm validation
+5. 🟠 **HIGH:** No error handling tests
+6. 🟡 **MEDIUM:** No audio processing tests with real files
+7. 🟡 **MEDIUM:** No performance benchmarks
+8. 🟢 **LOW:** No UI tests (manual testing sufficient for now)
 
 ---
 

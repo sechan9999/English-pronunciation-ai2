@@ -344,27 +344,43 @@ with tab2:
         if not questions:
             return []
 
+        # 헬퍼 함수: 괄호 앞의 한국어 텍스트만 추출
+        def extract_korean_text(text):
+            if not text:
+                return text
+            # "전체 (All)" -> "전체", "자기소개 (Self-Intro)" -> "자기소개"
+            return text.split('(')[0].strip()
+
         filtered = questions
 
-        if category and category != "전체":
-            category_map = {
-                "자기소개": "self-introduction",
-                "행동 질문": "behavioral",
-                "상황 질문": "situational",
-                "강점/약점": "strengths-weaknesses",
-                "경력 목표": "career-goals",
-                "회사/직무": "company-role",
-                "기술 질문": "technical"
-            }
-            filtered = [q for q in filtered if q.get('category') == category_map.get(category, category)]
+        # 카테고리 필터
+        if category:
+            category_korean = extract_korean_text(category)
+            if category_korean != "전체":
+                category_map = {
+                    "자기소개": "self-introduction",
+                    "행동 질문": "behavioral",
+                    "상황 질문": "situational",
+                    "강점/약점": "strengths-weaknesses",
+                    "경력 목표": "career-goals",
+                    "회사/직무": "company-role",
+                    "기술 질문": "technical"
+                }
+                filtered = [q for q in filtered if q.get('category') == category_map.get(category_korean, category_korean)]
 
-        if difficulty and difficulty != "전체":
-            difficulty_map = {"초급": "beginner", "중급": "intermediate", "고급": "advanced"}
-            filtered = [q for q in filtered if q.get('difficulty') == difficulty_map.get(difficulty, difficulty)]
+        # 난이도 필터
+        if difficulty:
+            difficulty_korean = extract_korean_text(difficulty)
+            if difficulty_korean != "전체":
+                difficulty_map = {"초급": "beginner", "중급": "intermediate", "고급": "advanced"}
+                filtered = [q for q in filtered if q.get('difficulty') == difficulty_map.get(difficulty_korean, difficulty_korean)]
 
-        if industry and industry != "전체":
-            industry_map = {"일반": "general", "기술": "tech", "비즈니스": "business", "마케팅": "marketing", "영업": "sales"}
-            filtered = [q for q in filtered if q.get('industry') == industry_map.get(industry, industry)]
+        # 산업 필터
+        if industry:
+            industry_korean = extract_korean_text(industry)
+            if industry_korean != "전체":
+                industry_map = {"일반": "general", "기술": "tech", "비즈니스": "business", "마케팅": "marketing", "영업": "sales"}
+                filtered = [q for q in filtered if q.get('industry') == industry_map.get(industry_korean, industry_korean)]
 
         return filtered
 

@@ -474,31 +474,506 @@
         "What resistance did you encounter?",
         "How did you maintain morale?"
       ]
+    },
+    {
+      "id": "q026",
+      "category": "self-introduction",
+      "industry": "tech",
+      "difficulty": "intermediate",
+      "question": "Walk me through your resume",
+      "question_ko": "이력서를 설명해주세요",
+      "tips": [
+        "Start with most recent experience",
+        "Highlight technical skills",
+        "Connect experiences to the role"
+      ],
+      "keywords": ["experience", "skills", "projects", "growth", "achievements"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "Tell me more about project X",
+        "What was your biggest achievement?"
+      ]
+    },
+    {
+      "id": "q027",
+      "category": "behavioral",
+      "industry": "tech",
+      "difficulty": "beginner",
+      "question": "Tell me about a bug you found and fixed",
+      "question_ko": "발견하고 수정한 버그에 대해 말해주세요",
+      "tips": [
+        "Explain the bug clearly",
+        "Describe your debugging process",
+        "Highlight the fix and testing"
+      ],
+      "keywords": ["bug", "debugging", "fix", "testing", "problem-solving"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "How did you test the fix?",
+        "What tools did you use?"
+      ]
+    },
+    {
+      "id": "q028",
+      "category": "technical",
+      "industry": "tech",
+      "difficulty": "advanced",
+      "question": "How would you design a scalable system for 1 million users?",
+      "question_ko": "100만 사용자를 위한 확장 가능한 시스템을 어떻게 설계하시겠습니까?",
+      "tips": [
+        "Consider database scaling",
+        "Discuss caching strategies",
+        "Mention load balancing"
+      ],
+      "keywords": ["scalability", "architecture", "database", "caching", "load balancing"],
+      "ideal_duration": 180,
+      "follow_up_questions": [
+        "What if traffic suddenly spikes?",
+        "How would you handle database bottlenecks?"
+      ]
+    },
+    {
+      "id": "q029",
+      "category": "behavioral",
+      "industry": "business",
+      "difficulty": "beginner",
+      "question": "Describe a time when you worked on a team project",
+      "question_ko": "팀 프로젝트에서 일한 경험을 설명해주세요",
+      "tips": [
+        "Highlight your role",
+        "Emphasize collaboration",
+        "Share the outcome"
+      ],
+      "keywords": ["teamwork", "collaboration", "role", "contribution", "success"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What was your specific contribution?",
+        "How did you handle disagreements?"
+      ]
+    },
+    {
+      "id": "q030",
+      "category": "situational",
+      "industry": "business",
+      "difficulty": "intermediate",
+      "question": "How would you prioritize competing business objectives?",
+      "question_ko": "경쟁하는 비즈니스 목표의 우선순위를 어떻게 정하시겠습니까?",
+      "tips": [
+        "Explain prioritization framework",
+        "Consider stakeholder input",
+        "Focus on business impact"
+      ],
+      "keywords": ["prioritization", "objectives", "decision-making", "stakeholders", "impact"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What criteria do you use?",
+        "How do you communicate priorities?"
+      ]
+    },
+    {
+      "id": "q031",
+      "category": "technical",
+      "industry": "marketing",
+      "difficulty": "beginner",
+      "question": "What marketing channels are you familiar with?",
+      "question_ko": "어떤 마케팅 채널에 익숙하신가요?",
+      "tips": [
+        "Mention digital and traditional channels",
+        "Provide examples of usage",
+        "Discuss effectiveness"
+      ],
+      "keywords": ["channels", "digital marketing", "social media", "SEO", "email"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "Which channel works best for B2B?",
+        "What tools do you use?"
+      ]
+    },
+    {
+      "id": "q032",
+      "category": "behavioral",
+      "industry": "marketing",
+      "difficulty": "advanced",
+      "question": "Tell me about a marketing campaign that didn't perform as expected",
+      "question_ko": "기대만큼 성과가 나지 않은 마케팅 캠페인에 대해 말해주세요",
+      "tips": [
+        "Be honest about failures",
+        "Explain what you learned",
+        "Describe how you pivoted"
+      ],
+      "keywords": ["failure", "learning", "pivot", "analysis", "improvement"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What metrics showed the problem?",
+        "How did you adjust?"
+      ]
+    },
+    {
+      "id": "q033",
+      "category": "behavioral",
+      "industry": "sales",
+      "difficulty": "beginner",
+      "question": "Describe your sales process from lead to close",
+      "question_ko": "리드부터 계약까지의 영업 프로세스를 설명해주세요",
+      "tips": [
+        "Outline each step clearly",
+        "Mention qualification criteria",
+        "Highlight closing techniques"
+      ],
+      "keywords": ["sales process", "lead", "qualification", "closing", "pipeline"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How do you qualify leads?",
+        "What's your close rate?"
+      ]
+    },
+    {
+      "id": "q034",
+      "category": "situational",
+      "industry": "sales",
+      "difficulty": "intermediate",
+      "question": "How would you handle a prospect who says your product is too expensive?",
+      "question_ko": "제품이 너무 비싸다는 잠재 고객을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Focus on value, not price",
+        "Understand their budget concerns",
+        "Offer alternatives if appropriate"
+      ],
+      "keywords": ["objection handling", "value", "pricing", "negotiation", "ROI"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What if they still say no?",
+        "How do you demonstrate value?"
+      ]
+    },
+    {
+      "id": "q035",
+      "category": "career-goals",
+      "industry": "tech",
+      "difficulty": "beginner",
+      "question": "What skills do you want to develop in your next role?",
+      "question_ko": "다음 직무에서 어떤 기술을 개발하고 싶으신가요?",
+      "tips": [
+        "Align with job requirements",
+        "Show growth mindset",
+        "Be specific about skills"
+      ],
+      "keywords": ["skills", "development", "growth", "learning", "goals"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "How will you learn these skills?",
+        "Why these skills specifically?"
+      ]
+    },
+    {
+      "id": "q036",
+      "category": "company-role",
+      "industry": "tech",
+      "difficulty": "intermediate",
+      "question": "What do you know about our technology stack?",
+      "question_ko": "우리 회사의 기술 스택에 대해 무엇을 알고 있나요?",
+      "tips": [
+        "Research beforehand",
+        "Show genuine interest",
+        "Ask thoughtful questions"
+      ],
+      "keywords": ["technology", "stack", "research", "interest", "knowledge"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What experience do you have with these technologies?",
+        "What would you like to learn?"
+      ]
+    },
+    {
+      "id": "q037",
+      "category": "strengths-weaknesses",
+      "industry": "general",
+      "difficulty": "advanced",
+      "question": "What feedback have you received that was difficult to hear?",
+      "question_ko": "듣기 어려웠던 피드백을 받은 적이 있나요?",
+      "tips": [
+        "Be honest and vulnerable",
+        "Show how you responded",
+        "Demonstrate growth"
+      ],
+      "keywords": ["feedback", "growth", "self-awareness", "improvement", "resilience"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How did you address it?",
+        "What did you learn?"
+      ]
+    },
+    {
+      "id": "q038",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you mentored someone",
+      "question_ko": "누군가를 멘토링한 경험에 대해 말해주세요",
+      "tips": [
+        "Describe the mentoring relationship",
+        "Highlight their growth",
+        "Share what you learned"
+      ],
+      "keywords": ["mentoring", "teaching", "leadership", "growth", "guidance"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What was the outcome?",
+        "What's your mentoring philosophy?"
+      ]
+    },
+    {
+      "id": "q039",
+      "category": "situational",
+      "industry": "general",
+      "difficulty": "beginner",
+      "question": "How do you stay organized and manage your time?",
+      "question_ko": "어떻게 조직적으로 일하고 시간을 관리하나요?",
+      "tips": [
+        "Mention specific tools or methods",
+        "Provide examples",
+        "Show effectiveness"
+      ],
+      "keywords": ["organization", "time management", "productivity", "tools", "methods"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What tools do you use?",
+        "How do you handle interruptions?"
+      ]
+    },
+    {
+      "id": "q040",
+      "category": "technical",
+      "industry": "tech",
+      "difficulty": "intermediate",
+      "question": "Explain the difference between SQL and NoSQL databases",
+      "question_ko": "SQL과 NoSQL 데이터베이스의 차이점을 설명해주세요",
+      "tips": [
+        "Cover key differences",
+        "Mention use cases",
+        "Avoid being too technical"
+      ],
+      "keywords": ["database", "SQL", "NoSQL", "scalability", "use cases"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "When would you use each?",
+        "What's your experience with them?"
+      ]
+    },
+    {
+      "id": "q041",
+      "category": "behavioral",
+      "industry": "tech",
+      "difficulty": "intermediate",
+      "question": "Describe a time when you improved a process or system",
+      "question_ko": "프로세스나 시스템을 개선한 경험을 설명해주세요",
+      "tips": [
+        "Quantify the improvement",
+        "Explain your approach",
+        "Highlight the impact"
+      ],
+      "keywords": ["improvement", "optimization", "process", "efficiency", "impact"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What metrics improved?",
+        "How did you measure success?"
+      ]
+    },
+    {
+      "id": "q042",
+      "category": "behavioral",
+      "industry": "business",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you had to deliver bad news",
+      "question_ko": "나쁜 소식을 전해야 했던 경험에 대해 말해주세요",
+      "tips": [
+        "Show empathy and professionalism",
+        "Explain your approach",
+        "Describe the outcome"
+      ],
+      "keywords": ["communication", "difficult conversation", "empathy", "professionalism", "transparency"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "How did they react?",
+        "What would you do differently?"
+      ]
+    },
+    {
+      "id": "q043",
+      "category": "situational",
+      "industry": "tech",
+      "difficulty": "advanced",
+      "question": "How would you handle a security breach in production?",
+      "question_ko": "프로덕션에서 보안 침해가 발생하면 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Outline immediate response steps",
+        "Mention communication plan",
+        "Discuss prevention measures"
+      ],
+      "keywords": ["security", "incident response", "communication", "prevention", "recovery"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "Who needs to be notified?",
+        "How do you prevent recurrence?"
+      ]
+    },
+    {
+      "id": "q044",
+      "category": "career-goals",
+      "industry": "business",
+      "difficulty": "intermediate",
+      "question": "What type of work environment do you thrive in?",
+      "question_ko": "어떤 업무 환경에서 가장 잘 일하나요?",
+      "tips": [
+        "Be honest about preferences",
+        "Align with company culture",
+        "Show flexibility"
+      ],
+      "keywords": ["work environment", "culture", "preferences", "teamwork", "independence"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What about remote vs office?",
+        "How do you adapt to different environments?"
+      ]
+    },
+    {
+      "id": "q045",
+      "category": "behavioral",
+      "industry": "marketing",
+      "difficulty": "intermediate",
+      "question": "Tell me about a time when you used data to make a decision",
+      "question_ko": "데이터를 사용하여 결정을 내린 경험에 대해 말해주세요",
+      "tips": [
+        "Explain the data you analyzed",
+        "Describe your decision process",
+        "Share the outcome"
+      ],
+      "keywords": ["data-driven", "analysis", "decision-making", "metrics", "results"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What tools did you use?",
+        "What was the impact?"
+      ]
+    },
+    {
+      "id": "q046",
+      "category": "behavioral",
+      "industry": "sales",
+      "difficulty": "advanced",
+      "question": "Describe your biggest sales win",
+      "question_ko": "가장 큰 영업 성공 사례를 설명해주세요",
+      "tips": [
+        "Quantify the win",
+        "Explain your strategy",
+        "Highlight relationship building"
+      ],
+      "keywords": ["sales", "success", "strategy", "relationship", "achievement"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What made this deal special?",
+        "What obstacles did you overcome?"
+      ]
+    },
+    {
+      "id": "q047",
+      "category": "company-role",
+      "industry": "general",
+      "difficulty": "beginner",
+      "question": "What interests you most about this position?",
+      "question_ko": "이 직무에서 가장 관심 있는 부분은 무엇인가요?",
+      "tips": [
+        "Research the role thoroughly",
+        "Connect to your skills",
+        "Show genuine enthusiasm"
+      ],
+      "keywords": ["interest", "role", "skills", "enthusiasm", "fit"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "What aspects are you most excited about?",
+        "How does this fit your career goals?"
+      ]
+    },
+    {
+      "id": "q048",
+      "category": "situational",
+      "industry": "general",
+      "difficulty": "intermediate",
+      "question": "How would you handle working with someone who has a very different work style?",
+      "question_ko": "매우 다른 업무 스타일을 가진 사람과 일하는 것을 어떻게 처리하시겠습니까?",
+      "tips": [
+        "Show adaptability",
+        "Emphasize communication",
+        "Focus on outcomes"
+      ],
+      "keywords": ["adaptability", "communication", "teamwork", "flexibility", "collaboration"],
+      "ideal_duration": 90,
+      "follow_up_questions": [
+        "Can you give an example?",
+        "How do you adapt?"
+      ]
+    },
+    {
+      "id": "q049",
+      "category": "technical",
+      "industry": "marketing",
+      "difficulty": "advanced",
+      "question": "How do you approach A/B testing for marketing campaigns?",
+      "question_ko": "마케팅 캠페인을 위한 A/B 테스트를 어떻게 진행하나요?",
+      "tips": [
+        "Explain hypothesis formation",
+        "Discuss sample size and duration",
+        "Mention statistical significance"
+      ],
+      "keywords": ["A/B testing", "hypothesis", "data", "optimization", "metrics"],
+      "ideal_duration": 120,
+      "follow_up_questions": [
+        "What metrics do you track?",
+        "How do you determine winners?"
+      ]
+    },
+    {
+      "id": "q050",
+      "category": "behavioral",
+      "industry": "general",
+      "difficulty": "advanced",
+      "question": "Tell me about a time when you had to make an unpopular decision",
+      "question_ko": "인기 없는 결정을 내려야 했던 경험에 대해 말해주세요",
+      "tips": [
+        "Explain the context",
+        "Describe your reasoning",
+        "Show leadership courage"
+      ],
+      "keywords": ["difficult decision", "leadership", "courage", "communication", "conviction"],
+      "ideal_duration": 150,
+      "follow_up_questions": [
+        "How did you communicate it?",
+        "Would you make the same decision again?"
+      ]
     }
   ],
   "metadata": {
-    "version": "1.0",
-    "total_questions": 25,
+    "version": "2.0",
+    "total_questions": 50,
     "categories": {
-      "self-introduction": 1,
-      "behavioral": 14,
-      "strengths-weaknesses": 2,
-      "situational": 5,
-      "career-goals": 1,
-      "company-role": 2,
-      "technical": 3
+      "self-introduction": 2,
+      "behavioral": 27,
+      "strengths-weaknesses": 3,
+      "situational": 9,
+      "career-goals": 3,
+      "company-role": 4,
+      "technical": 7
     },
     "industries": {
-      "general": 17,
-      "tech": 4,
-      "business": 3,
-      "marketing": 2,
-      "sales": 2
+      "general": 27,
+      "tech": 12,
+      "business": 7,
+      "marketing": 6,
+      "sales": 5
     },
     "difficulty_levels": {
-      "beginner": 3,
-      "intermediate": 14,
-      "advanced": 8
+      "beginner": 10,
+      "intermediate": 24,
+      "advanced": 16
     },
     "last_updated": "2025-11-17"
   }

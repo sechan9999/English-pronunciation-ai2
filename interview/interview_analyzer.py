@@ -558,6 +558,39 @@ class InterviewAnalyzer:
 
 
 # 유틸리티 함수
+def load_questions_db() -> Dict:
+    """
+    전체 질문 데이터베이스 로드 (메타데이터 포함)
+
+    Returns:
+        전체 질문 데이터베이스 딕셔너리
+    """
+    questions_file = Path(__file__).parent / 'interview_questions.json'
+
+    try:
+        with open(questions_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        # 파일이 없을 경우 빈 데이터베이스 반환
+        return {
+            'questions': [],
+            'metadata': {
+                'version': '1.0',
+                'total_questions': 0
+            }
+        }
+    except Exception as e:
+        print(f"Error loading questions: {e}")
+        return {
+            'questions': [],
+            'metadata': {
+                'version': '1.0',
+                'total_questions': 0
+            }
+        }
+
+
 def load_questions(category: str = None, difficulty: str = None, industry: str = None) -> List[Dict]:
     """
     질문 데이터베이스에서 질문 로드
@@ -570,20 +603,16 @@ def load_questions(category: str = None, difficulty: str = None, industry: str =
     Returns:
         필터링된 질문 리스트
     """
-    questions_file = Path(__file__).parent / 'interview_questions.json'
-
-    with open(questions_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
-    questions = data['questions']
+    data = load_questions_db()
+    questions = data.get('questions', [])
 
     # 필터링
     if category:
-        questions = [q for q in questions if q['category'] == category]
+        questions = [q for q in questions if q.get('category') == category]
     if difficulty:
-        questions = [q for q in questions if q['difficulty'] == difficulty]
+        questions = [q for q in questions if q.get('difficulty') == difficulty]
     if industry:
-        questions = [q for q in questions if q['industry'] == industry]
+        questions = [q for q in questions if q.get('industry') == industry]
 
     return questions
 

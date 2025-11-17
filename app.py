@@ -10,7 +10,7 @@ import requests
 import json
 from pronunciation_analyzer import PronunciationAnalyzer
 from audio_recorder_streamlit import audio_recorder
-from interview.interview_analyzer import InterviewAnalyzer, load_questions
+from interview.interview_analyzer import InterviewAnalyzer, load_questions_db
 
 # 페이지 설정
 st.set_page_config(
@@ -29,7 +29,7 @@ if 'history' not in st.session_state:
 if 'interview_analyzer' not in st.session_state:
     st.session_state.interview_analyzer = InterviewAnalyzer(pronunciation_analyzer=st.session_state.analyzer)
 if 'interview_questions_db' not in st.session_state:
-    st.session_state.interview_questions_db = load_questions()
+    st.session_state.interview_questions_db = load_questions_db()
 if 'interview_mode' not in st.session_state:
     st.session_state.interview_mode = 'single'  # 'single' or 'mock'
 if 'interview_session_active' not in st.session_state:
@@ -336,7 +336,14 @@ with tab2:
     # 헬퍼 함수들
     def get_filtered_questions(category=None, difficulty=None, industry=None):
         """필터링된 질문 목록 반환"""
-        questions = st.session_state.interview_questions_db['questions']
+        # 안전하게 questions 가져오기
+        if not st.session_state.interview_questions_db:
+            return []
+
+        questions = st.session_state.interview_questions_db.get('questions', [])
+        if not questions:
+            return []
+
         filtered = questions
 
         if category and category != "전체":
@@ -349,15 +356,15 @@ with tab2:
                 "회사/직무": "company-role",
                 "기술 질문": "technical"
             }
-            filtered = [q for q in filtered if q['category'] == category_map.get(category, category)]
+            filtered = [q for q in filtered if q.get('category') == category_map.get(category, category)]
 
         if difficulty and difficulty != "전체":
             difficulty_map = {"초급": "beginner", "중급": "intermediate", "고급": "advanced"}
-            filtered = [q for q in filtered if q['difficulty'] == difficulty_map.get(difficulty, difficulty)]
+            filtered = [q for q in filtered if q.get('difficulty') == difficulty_map.get(difficulty, difficulty)]
 
         if industry and industry != "전체":
             industry_map = {"일반": "general", "기술": "tech", "비즈니스": "business", "마케팅": "marketing", "영업": "sales"}
-            filtered = [q for q in filtered if q['industry'] == industry_map.get(industry, industry)]
+            filtered = [q for q in filtered if q.get('industry') == industry_map.get(industry, industry)]
 
         return filtered
 
@@ -434,22 +441,27 @@ with tab2:
             if not st.session_state.interview_session_active:
                 # 랜덤 질문 가져오기 버튼
                 if st.button("🎲 랜덤 질문 가져오기", type="primary", use_container_width=True):
-                    filtered_questions = get_filtered_questions(
-                        interview_category,
-                        interview_difficulty,
-                        interview_industry
-                    )
+                    try:
+                        filtered_questions = get_filtered_questions(
+                            interview_category,
+                            interview_difficulty,
+                            interview_industry
+                        )
 
-                    if filtered_questions:
-                        import random
-                        selected_question = random.choice(filtered_questions)
-                        st.session_state.interview_questions = [selected_question]
-                        st.session_state.interview_session_active = True
-                        st.session_state.interview_current_index = 0
-                        st.session_state.interview_results = []
-                        st.rerun()
-                    else:
-                        st.warning("선택한 필터 조건에 맞는 질문이 없습니다.")
+                        if filtered_questions:
+                            import random
+                            selected_question = random.choice(filtered_questions)
+                            st.session_state.interview_questions = [selected_question]
+                            st.session_state.interview_session_active = True
+                            st.session_state.interview_current_index = 0
+                            st.session_state.interview_results = []
+                            st.rerun()
+                        else:
+                            st.warning("선택한 필터 조건에 맞는 질문이 없습니다.")
+                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요.")
+                    except Exception as e:
+                        st.error(f"질문을 가져오는 중 오류가 발생했습니다: {str(e)}")
+                        st.info("면접 질문 데이터베이스를 확인하세요.")
 
                 st.info("👆 버튼을 눌러 질문을 가져오세요")
 
@@ -482,22 +494,27 @@ with tab2:
             if not st.session_state.interview_session_active:
                 # 모의 면접 시작 버튼
                 if st.button("🚀 모의 면접 시작", type="primary", use_container_width=True):
-                    filtered_questions = get_filtered_questions(
-                        interview_category,
-                        interview_difficulty,
-                        interview_industry
-                    )
+                    try:
+                        filtered_questions = get_filtered_questions(
+                            interview_category,
+                            interview_difficulty,
+                            interview_industry
+                        )
 
-                    if len(filtered_questions) >= num_questions:
-                        import random
-                        selected_questions = random.sample(filtered_questions, num_questions)
-                        st.session_state.interview_questions = selected_questions
-                        st.session_state.interview_session_active = True
-                        st.session_state.interview_current_index = 0
-                        st.session_state.interview_results = []
-                        st.rerun()
-                    else:
-                        st.warning(f"선택한 필터 조건에 맞는 질문이 {num_questions}개 이상 필요합니다. (현재: {len(filtered_questions)}개)")
+                        if len(filtered_questions) >= num_questions:
+                            import random
+                            selected_questions = random.sample(filtered_questions, num_questions)
+                            st.session_state.interview_questions = selected_questions
+                            st.session_state.interview_session_active = True
+                            st.session_state.interview_current_index = 0
+                            st.session_state.interview_results = []
+                            st.rerun()
+                        else:
+                            st.warning(f"선택한 필터 조건에 맞는 질문이 {num_questions}개 이상 필요합니다. (현재: {len(filtered_questions)}개)")
+                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요.")
+                    except Exception as e:
+                        st.error(f"모의 면접을 시작하는 중 오류가 발생했습니다: {str(e)}")
+                        st.info("면접 질문 데이터베이스를 확인하세요.")
 
                 st.info("👆 버튼을 눌러 모의 면접을 시작하세요")
 

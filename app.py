@@ -338,49 +338,73 @@ with tab2:
         """필터링된 질문 목록 반환"""
         # 안전하게 questions 가져오기
         if not st.session_state.interview_questions_db:
+            st.error("⚠️ 질문 데이터베이스를 로드할 수 없습니다.")
             return []
 
         questions = st.session_state.interview_questions_db.get('questions', [])
         if not questions:
+            st.error("⚠️ 질문 데이터가 비어있습니다.")
             return []
 
-        # 헬퍼 함수: 괄호 앞의 한국어 텍스트만 추출
-        def extract_korean_text(text):
+        # 카테고리 매핑 (한글 → 영문)
+        category_map = {
+            "전체": None,
+            "자기소개": "self-introduction",
+            "행동 질문": "behavioral",
+            "상황 질문": "situational",
+            "강점/약점": "strengths-weaknesses",
+            "경력 목표": "career-goals",
+            "회사/직무": "company-role",
+            "기술 질문": "technical"
+        }
+
+        difficulty_map = {
+            "전체": None,
+            "초급": "beginner",
+            "중급": "intermediate",
+            "고급": "advanced"
+        }
+
+        industry_map = {
+            "전체": None,
+            "일반": "general",
+            "기술": "tech",
+            "비즈니스": "business",
+            "마케팅": "marketing",
+            "영업": "sales"
+        }
+
+        # 괄호 앞의 한국어만 추출하는 헬퍼
+        def extract_korean(text):
             if not text:
-                return text
-            # "전체 (All)" -> "전체", "자기소개 (Self-Intro)" -> "자기소개"
+                return ""
+            # "전체 (All)" → "전체"
             return text.split('(')[0].strip()
 
-        filtered = questions
+        # 필터 값 추출
+        cat_korean = extract_korean(category) if category else None
+        diff_korean = extract_korean(difficulty) if difficulty else None
+        ind_korean = extract_korean(industry) if industry else None
+
+        # 영문 값으로 변환
+        cat_english = category_map.get(cat_korean, None)
+        diff_english = difficulty_map.get(diff_korean, None)
+        ind_english = industry_map.get(ind_korean, None)
+
+        # 필터링 시작
+        filtered = questions[:]  # 복사본 생성
 
         # 카테고리 필터
-        if category:
-            category_korean = extract_korean_text(category)
-            if category_korean != "전체":
-                category_map = {
-                    "자기소개": "self-introduction",
-                    "행동 질문": "behavioral",
-                    "상황 질문": "situational",
-                    "강점/약점": "strengths-weaknesses",
-                    "경력 목표": "career-goals",
-                    "회사/직무": "company-role",
-                    "기술 질문": "technical"
-                }
-                filtered = [q for q in filtered if q.get('category') == category_map.get(category_korean, category_korean)]
+        if cat_english is not None:
+            filtered = [q for q in filtered if q.get('category') == cat_english]
 
         # 난이도 필터
-        if difficulty:
-            difficulty_korean = extract_korean_text(difficulty)
-            if difficulty_korean != "전체":
-                difficulty_map = {"초급": "beginner", "중급": "intermediate", "고급": "advanced"}
-                filtered = [q for q in filtered if q.get('difficulty') == difficulty_map.get(difficulty_korean, difficulty_korean)]
+        if diff_english is not None:
+            filtered = [q for q in filtered if q.get('difficulty') == diff_english]
 
         # 산업 필터
-        if industry:
-            industry_korean = extract_korean_text(industry)
-            if industry_korean != "전체":
-                industry_map = {"일반": "general", "기술": "tech", "비즈니스": "business", "마케팅": "marketing", "영업": "sales"}
-                filtered = [q for q in filtered if q.get('industry') == industry_map.get(industry_korean, industry_korean)]
+        if ind_english is not None:
+            filtered = [q for q in filtered if q.get('industry') == ind_english]
 
         return filtered
 
@@ -438,8 +462,23 @@ with tab2:
                 key="num_questions"
             )
 
+        # 데이터베이스 상태 표시
+        st.divider()
+        if st.session_state.interview_questions_db:
+            total_q = st.session_state.interview_questions_db.get('metadata', {}).get('total_questions', 0)
+            st.caption(f"📚 전체 질문 수: {total_q}개")
+
+            # 현재 필터로 몇 개 매칭되는지 표시
+            current_filtered = get_filtered_questions(
+                interview_category,
+                interview_difficulty,
+                interview_industry
+            )
+            st.caption(f"🔍 현재 필터 결과: {len(current_filtered)}개")
+
         # 통계
         if st.session_state.interview_history:
+            st.divider()
             st.subheader("📊 면접 통계 (Interview Statistics)")
             total_interviews = len(st.session_state.interview_history)
             if total_interviews > 0:

@@ -56,7 +56,7 @@ st.markdown("""
 st.divider()
 
 # 탭 생성
-tab1, tab2 = st.tabs(["🗣️ 발음 연습", "💼 면접 연습"])
+tab1, tab2 = st.tabs(["🗣️ 발음 연습 (Pronunciation Practice)", "💼 면접 연습 (Interview Practice)"])
 
 # =============================================================================
 # TAB 1: 발음 연습 (기존 기능)
@@ -64,23 +64,23 @@ tab1, tab2 = st.tabs(["🗣️ 발음 연습", "💼 면접 연습"])
 with tab1:
     # 사이드바 - 설정
     with st.sidebar:
-        st.header("⚙️ 설정")
+        st.header("⚙️ 설정 (Settings)")
 
         # 연습 문장 선택
         practice_mode = st.selectbox(
-            "연습 모드",
-            ["기본 문장", "사용자 입력", "일상 회화", "비즈니스 영어"]
+            "연습 모드 (Practice Mode)",
+            ["기본 문장 (Basic Sentence)", "사용자 입력 (Custom Input)", "일상 회화 (Daily Conversation)", "비즈니스 영어 (Business English)"]
         )
 
-        if practice_mode == "사용자 입력":
+        if "사용자 입력" in practice_mode or "Custom Input" in practice_mode:
             custom_text = st.text_area(
-                "연습할 문장을 입력하세요",
+                "연습할 문장을 입력하세요 (Enter your practice sentence)",
                 placeholder="예: How are you doing today?"
             )
             reference_text = custom_text if custom_text else "Hello world"
-        elif practice_mode == "일상 회화":
+        elif "일상 회화" in practice_mode or "Daily Conversation" in practice_mode:
             reference_text = st.selectbox(
-                "문장 선택",
+                "문장 선택 (Select Sentence)",
                 [
                     "How are you doing today?",
                     "Nice to meet you",
@@ -88,9 +88,9 @@ with tab1:
                     "I'd like a cup of coffee please"
                 ]
             )
-        elif practice_mode == "비즈니스 영어":
+        elif "비즈니스 영어" in practice_mode or "Business English" in practice_mode:
             reference_text = st.selectbox(
-                "문장 선택",
+                "문장 선택 (Select Sentence)",
                 [
                     "Let's schedule a meeting",
                     "Could you send me the report?",
@@ -104,51 +104,51 @@ with tab1:
         st.divider()
 
         # 분석 옵션
-        st.subheader("분석 옵션")
-        analyze_prosody = st.checkbox("운율 분석 (속도, 억양)", value=True)
-        show_phonemes = st.checkbox("음소 상세 보기", value=False)
+        st.subheader("분석 옵션 (Analysis Options)")
+        analyze_prosody = st.checkbox("운율 분석 (Prosody Analysis) - 속도, 억양 (Speed, Intonation)", value=True)
+        show_phonemes = st.checkbox("음소 상세 보기 (Show Phoneme Details)", value=False)
 
         st.divider()
 
         # 통계
         if st.session_state.history:
-            st.subheader("📈 학습 통계")
+            st.subheader("📈 학습 통계 (Learning Statistics)")
             avg_score = sum(h['score'] for h in st.session_state.history) / len(st.session_state.history)
-            st.metric("평균 점수", f"{avg_score:.1f}점")
-            st.metric("총 연습 횟수", len(st.session_state.history))
+            st.metric("평균 점수 (Average Score)", f"{avg_score:.1f}점")
+            st.metric("총 연습 횟수 (Total Sessions)", len(st.session_state.history))
 
     # 메인 영역
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.header("🎯 연습할 문장")
+        st.header("🎯 연습할 문장 (Practice Sentence)")
         st.info(reference_text)
 
         # 발음 팁
-        with st.expander("💡 발음 팁"):
+        with st.expander("💡 발음 팁 (Pronunciation Tips)"):
             st.markdown("""
-            - 천천히, 또박또박 발음하세요
-            - 각 단어의 강세를 신경쓰세요
-            - 자연스러운 속도로 말하세요
-            - 문장 끝의 억양에 주의하세요
+            - 천천히, 또박또박 발음하세요 (Speak slowly and clearly)
+            - 각 단어의 강세를 신경쓰세요 (Pay attention to word stress)
+            - 자연스러운 속도로 말하세요 (Speak at a natural pace)
+            - 문장 끝의 억양에 주의하세요 (Watch sentence intonation)
             """)
 
         st.divider()
 
         # 오디오 업로드 또는 녹음
-        st.subheader("🎙️ 음성 입력")
+        st.subheader("🎙️ 음성 입력 (Audio Input)")
 
         audio_source = st.radio(
-            "입력 방식",
-            ["파일 업로드", "녹음하기"],
+            "입력 방식 (Input Method)",
+            ["파일 업로드 (File Upload)", "녹음하기 (Record)"],
             horizontal=True
         )
 
         audio_file = None
 
-        if audio_source == "파일 업로드":
+        if "파일 업로드" in audio_source or "File Upload" in audio_source:
             uploaded_file = st.file_uploader(
-                "오디오 파일을 업로드하세요 (mp3, wav, m4a)",
+                "오디오 파일을 업로드하세요 (Upload audio file) - mp3, wav, m4a",
                 type=['mp3', 'wav', 'm4a', 'ogg']
             )
             if uploaded_file:
@@ -156,23 +156,23 @@ with tab1:
                 st.audio(uploaded_file, format='audio/wav')
         else:
             # 실시간 마이크 녹음
-            st.info("🎤 아래 버튼을 눌러 녹음을 시작하세요")
+            st.info("🎤 아래 버튼을 눌러 녹음을 시작하세요 (Click button below to start recording)")
 
             # 첫 사용 안내
-            with st.expander("📱 마이크 권한 안내"):
+            with st.expander("📱 마이크 권한 안내 (Microphone Permission Guide)"):
                 st.markdown("""
-                **처음 사용하시는 경우:**
-                1. 녹음 버튼을 누르면 브라우저에서 마이크 권한을 요청합니다
-                2. "허용" 버튼을 클릭해주세요
-                3. 마이크 아이콘이 빨간색으로 바뀌면 녹음 시작
-                4. 문장을 또박또박 읽어주세요
-                5. 다시 버튼을 눌러 녹음 종료
+                **처음 사용하시는 경우 (First time users):**
+                1. 녹음 버튼을 누르면 브라우저에서 마이크 권한을 요청합니다 (Browser will request microphone permission)
+                2. "허용" 버튼을 클릭해주세요 (Click "Allow")
+                3. 마이크 아이콘이 빨간색으로 바뀌면 녹음 시작 (Recording starts when icon turns red)
+                4. 문장을 또박또박 읽어주세요 (Read the sentence clearly)
+                5. 다시 버튼을 눌러 녹음 종료 (Click again to stop)
 
-                **녹음 팁:**
-                - 조용한 환경에서 녹음하세요
-                - 마이크에 너무 가까이 말하지 마세요 (10-20cm 거리)
-                - 자연스러운 속도로 말씀해주세요
-                - 배경 소음이 있으면 정확도가 떨어질 수 있습니다
+                **녹음 팁 (Recording Tips):**
+                - 조용한 환경에서 녹음하세요 (Record in quiet environment)
+                - 마이크에 너무 가까이 말하지 마세요 (Keep 10-20cm distance from mic)
+                - 자연스러운 속도로 말씀해주세요 (Speak at natural pace)
+                - 배경 소음이 있으면 정확도가 떨어질 수 있습니다 (Background noise affects accuracy)
                 """)
 
             # 오디오 녹음 컴포넌트
@@ -185,7 +185,7 @@ with tab1:
             )
 
             if audio_bytes:
-                st.success("✅ 녹음 완료!")
+                st.success("✅ 녹음 완료! (Recording Complete!)")
                 st.audio(audio_bytes, format='audio/wav')
 
                 # 녹음된 오디오를 임시 파일로 저장
@@ -195,17 +195,17 @@ with tab1:
 
         # 분석 버튼
         analyze_button = st.button(
-            "🔍 발음 분석 시작",
+            "🔍 발음 분석 시작 (Start Analysis)",
             type="primary",
             disabled=(audio_file is None),
             use_container_width=True
         )
 
     with col2:
-        st.header("📊 분석 결과")
+        st.header("📊 분석 결과 (Analysis Results)")
 
         if analyze_button and audio_file:
-            with st.spinner("AI가 발음을 분석하고 있습니다..."):
+            with st.spinner("AI가 발음을 분석하고 있습니다... (AI is analyzing your pronunciation...)"):
                 # 파일 경로 또는 파일 객체 처리
                 if isinstance(audio_file, str):
                     # 녹음된 파일 (이미 경로)
@@ -226,79 +226,79 @@ with tab1:
                     )
 
                     # 결과 표시
-                    st.success("분석 완료!")
+                    st.success("분석 완료! (Analysis Complete!)")
 
                     # 인식된 텍스트
-                    st.subheader("🗣️ 인식된 텍스트")
+                    st.subheader("🗣️ 인식된 텍스트 (Recognized Text)")
                     st.code(result['spoken_text'], language=None)
 
                     # 점수 표시
-                    st.subheader("🎯 발음 점수")
+                    st.subheader("🎯 발음 점수 (Pronunciation Score)")
                     score = result['pronunciation']['overall_score']
 
                     # 게이지 차트 (progress bar)
                     score_color = "🟢" if score >= 80 else "🟡" if score >= 60 else "🔴"
-                    st.markdown(f"### {score_color} {score}점")
+                    st.markdown(f"### {score_color} {score}점 (points)")
                     st.progress(score / 100)
 
                     # 세부 점수
                     col_a, col_b = st.columns(2)
                     with col_a:
                         st.metric(
-                            "단어 정확도",
+                            "단어 정확도 (Word Accuracy)",
                             f"{result['pronunciation']['word_accuracy']}%"
                         )
                     with col_b:
                         st.metric(
-                            "음소 유사도",
+                            "음소 유사도 (Phoneme Similarity)",
                             f"{result['pronunciation']['phoneme_similarity']}%"
                         )
 
                     st.divider()
 
                     # 피드백
-                    st.subheader("💬 AI 피드백")
+                    st.subheader("💬 AI 피드백 (AI Feedback)")
                     st.markdown(result['feedback'])
 
                     # 틀린 단어 상세
                     if result['pronunciation']['mispronounced_words']:
                         st.divider()
-                        st.subheader("❌ 개선이 필요한 부분")
+                        st.subheader("❌ 개선이 필요한 부분 (Areas for Improvement)")
 
                         for error in result['pronunciation']['mispronounced_words']:
                             with st.container():
                                 st.markdown(
-                                    f"**위치 {error['position'] + 1}**: "
-                                    f"`{error['expected']}` → 당신: `{error['spoken']}`"
+                                    f"**위치 (Position) {error['position'] + 1}**: "
+                                    f"`{error['expected']}` → 당신 (You): `{error['spoken']}`"
                                 )
 
                     # 음소 상세 (옵션)
                     if show_phonemes:
                         st.divider()
-                        st.subheader("🔤 음소 분석")
+                        st.subheader("🔤 음소 분석 (Phoneme Analysis)")
                         ref_phonemes = st.session_state.analyzer.get_phonemes(reference_text)
                         spoken_phonemes = st.session_state.analyzer.get_phonemes(result['spoken_text'])
 
                         col_p1, col_p2 = st.columns(2)
                         with col_p1:
-                            st.caption("참조 음소")
+                            st.caption("참조 음소 (Reference Phonemes)")
                             st.code(' '.join(ref_phonemes), language=None)
                         with col_p2:
-                            st.caption("인식 음소")
+                            st.caption("인식 음소 (Recognized Phonemes)")
                             st.code(' '.join(spoken_phonemes), language=None)
 
                     # 운율 분석 (옵션)
                     if analyze_prosody and result['prosody'].get('speaking_rate', 0) > 0:
                         st.divider()
-                        st.subheader("🎵 운율 분석")
+                        st.subheader("🎵 운율 분석 (Prosody Analysis)")
 
                         col_pr1, col_pr2, col_pr3 = st.columns(3)
                         with col_pr1:
-                            st.metric("말하기 속도", f"{result['prosody']['speaking_rate']:.1f}")
+                            st.metric("말하기 속도 (Speaking Rate)", f"{result['prosody']['speaking_rate']:.1f}")
                         with col_pr2:
-                            st.metric("피치 변화", f"{result['prosody']['pitch_variation']:.1f}")
+                            st.metric("피치 변화 (Pitch Variation)", f"{result['prosody']['pitch_variation']:.1f}")
                         with col_pr3:
-                            st.metric("에너지 변화", f"{result['prosody']['energy_variation']:.4f}")
+                            st.metric("에너지 변화 (Energy Variation)", f"{result['prosody']['energy_variation']:.4f}")
 
                     # 히스토리에 추가
                     st.session_state.history.append({
@@ -308,8 +308,8 @@ with tab1:
                     })
 
                 except Exception as e:
-                    st.error(f"분석 중 오류 발생: {e}")
-                    st.info("오디오 파일 형식을 확인해주세요. WAV 파일을 권장합니다.")
+                    st.error(f"분석 중 오류 발생 (Error during analysis): {e}")
+                    st.info("오디오 파일 형식을 확인해주세요 (Please check audio file format). WAV 파일을 권장합니다 (WAV recommended).")
 
                 finally:
                     # 임시 파일 삭제 (업로드된 파일만)
@@ -317,7 +317,7 @@ with tab1:
                         os.remove(tmp_path)
 
         elif not audio_file:
-            st.info("👆 왼쪽에서 음성을 녹음하거나 파일을 업로드하세요")
+            st.info("👆 왼쪽에서 음성을 녹음하거나 파일을 업로드하세요 (Record or upload audio on the left)")
 
     # 푸터
     st.divider()
@@ -325,9 +325,9 @@ with tab1:
 
     # 학습 히스토리
     if st.session_state.history:
-        with st.expander("📚 최근 학습 기록"):
+        with st.expander("📚 최근 학습 기록 (Recent Practice History)"):
             for i, record in enumerate(reversed(st.session_state.history[-5:])):
-                st.text(f"{len(st.session_state.history) - i}. {record['reference'][:50]}... - 점수: {record['score']:.1f}점")
+                st.text(f"{len(st.session_state.history) - i}. {record['reference'][:50]}... - 점수 (Score): {record['score']:.1f}점")
 
 # =============================================================================
 # TAB 2: 면접 연습 (새로운 기능)
@@ -377,44 +377,45 @@ with tab2:
 
     # 사이드바 - 면접 설정
     with st.sidebar:
-        st.header("💼 면접 설정")
+        st.header("💼 면접 설정 (Interview Settings)")
 
         # 연습 모드 선택
         interview_practice_mode = st.radio(
-            "연습 모드",
-            ["단일 질문 연습", "모의 면접 (3-5문)"],
+            "연습 모드 (Practice Mode)",
+            ["단일 질문 연습 (Single Question)", "모의 면접 (Mock Interview) - 3-5문"],
             key="interview_practice_mode"
         )
 
         st.divider()
 
         # 질문 필터
-        st.subheader("질문 필터")
+        st.subheader("질문 필터 (Question Filters)")
 
         interview_category = st.selectbox(
-            "카테고리",
-            ["전체", "자기소개", "행동 질문", "상황 질문", "강점/약점", "경력 목표", "회사/직무", "기술 질문"],
+            "카테고리 (Category)",
+            ["전체 (All)", "자기소개 (Self-Intro)", "행동 질문 (Behavioral)", "상황 질문 (Situational)",
+             "강점/약점 (Strengths/Weaknesses)", "경력 목표 (Career Goals)", "회사/직무 (Company/Role)", "기술 질문 (Technical)"],
             key="interview_category"
         )
 
         interview_difficulty = st.selectbox(
-            "난이도",
-            ["전체", "초급", "중급", "고급"],
+            "난이도 (Difficulty)",
+            ["전체 (All)", "초급 (Beginner)", "중급 (Intermediate)", "고급 (Advanced)"],
             key="interview_difficulty"
         )
 
         interview_industry = st.selectbox(
-            "산업",
-            ["전체", "일반", "기술", "비즈니스", "마케팅", "영업"],
+            "산업 (Industry)",
+            ["전체 (All)", "일반 (General)", "기술 (Tech)", "비즈니스 (Business)", "마케팅 (Marketing)", "영업 (Sales)"],
             key="interview_industry"
         )
 
         st.divider()
 
         # 모의 면접 설정
-        if interview_practice_mode == "모의 면접 (3-5문)":
+        if "모의 면접" in interview_practice_mode or "Mock Interview" in interview_practice_mode:
             num_questions = st.slider(
-                "질문 수",
+                "질문 수 (Number of Questions)",
                 min_value=3,
                 max_value=5,
                 value=3,
@@ -423,24 +424,24 @@ with tab2:
 
         # 통계
         if st.session_state.interview_history:
-            st.subheader("📊 면접 통계")
+            st.subheader("📊 면접 통계 (Interview Statistics)")
             total_interviews = len(st.session_state.interview_history)
             if total_interviews > 0:
                 avg_score = sum(h['overall_score'] for h in st.session_state.interview_history) / total_interviews
-                st.metric("평균 점수", f"{avg_score:.1f}점")
-                st.metric("총 연습 횟수", total_interviews)
+                st.metric("평균 점수 (Average Score)", f"{avg_score:.1f}점")
+                st.metric("총 연습 횟수 (Total Sessions)", total_interviews)
 
     # 메인 영역
     interview_col1, interview_col2 = st.columns([1, 1])
 
     with interview_col1:
-        st.header("📝 질문 선택 & 녹음")
+        st.header("📝 질문 선택 & 녹음 (Question Selection & Recording)")
 
         # 단일 질문 모드
-        if interview_practice_mode == "단일 질문 연습":
+        if "단일 질문" in interview_practice_mode or "Single Question" in interview_practice_mode:
             if not st.session_state.interview_session_active:
                 # 랜덤 질문 가져오기 버튼
-                if st.button("🎲 랜덤 질문 가져오기", type="primary", use_container_width=True):
+                if st.button("🎲 랜덤 질문 가져오기 (Get Random Question)", type="primary", use_container_width=True):
                     try:
                         filtered_questions = get_filtered_questions(
                             interview_category,
@@ -457,33 +458,33 @@ with tab2:
                             st.session_state.interview_results = []
                             st.rerun()
                         else:
-                            st.warning("선택한 필터 조건에 맞는 질문이 없습니다.")
-                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요.")
+                            st.warning("선택한 필터 조건에 맞는 질문이 없습니다 (No questions match selected filters).")
+                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요 (Try 'All' category or adjust filters).")
                     except Exception as e:
-                        st.error(f"질문을 가져오는 중 오류가 발생했습니다: {str(e)}")
-                        st.info("면접 질문 데이터베이스를 확인하세요.")
+                        st.error(f"질문을 가져오는 중 오류가 발생했습니다 (Error loading question): {str(e)}")
+                        st.info("면접 질문 데이터베이스를 확인하세요 (Please check interview questions database).")
 
-                st.info("👆 버튼을 눌러 질문을 가져오세요")
+                st.info("👆 버튼을 눌러 질문을 가져오세요 (Click button above to get a question)")
 
             else:
                 # 현재 질문 표시
                 current_question = st.session_state.interview_questions[0]
 
-                st.subheader("🎯 현재 질문")
+                st.subheader("🎯 현재 질문 (Current Question)")
                 st.info(current_question['question'])
-                st.caption(f"💬 한국어: {current_question['question_ko']}")
+                st.caption(f"💬 한국어 (Korean): {current_question['question_ko']}")
 
                 # 질문 정보
                 col_info1, col_info2, col_info3 = st.columns(3)
                 with col_info1:
-                    st.caption(f"📁 카테고리: {current_question['category']}")
+                    st.caption(f"📁 카테고리 (Category): {current_question['category']}")
                 with col_info2:
-                    st.caption(f"📊 난이도: {current_question['difficulty']}")
+                    st.caption(f"📊 난이도 (Difficulty): {current_question['difficulty']}")
                 with col_info3:
-                    st.caption(f"⏱️ 권장 시간: {current_question['ideal_duration']}초")
+                    st.caption(f"⏱️ 권장 시간 (Recommended Time): {current_question['ideal_duration']}초 (sec)")
 
                 # 팁
-                with st.expander("💡 답변 팁"):
+                with st.expander("💡 답변 팁 (Answer Tips)"):
                     for tip in current_question.get('tips', []):
                         st.markdown(f"- {tip}")
 
@@ -493,7 +494,7 @@ with tab2:
         else:
             if not st.session_state.interview_session_active:
                 # 모의 면접 시작 버튼
-                if st.button("🚀 모의 면접 시작", type="primary", use_container_width=True):
+                if st.button("🚀 모의 면접 시작 (Start Mock Interview)", type="primary", use_container_width=True):
                     try:
                         filtered_questions = get_filtered_questions(
                             interview_category,
@@ -510,31 +511,31 @@ with tab2:
                             st.session_state.interview_results = []
                             st.rerun()
                         else:
-                            st.warning(f"선택한 필터 조건에 맞는 질문이 {num_questions}개 이상 필요합니다. (현재: {len(filtered_questions)}개)")
-                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요.")
+                            st.warning(f"선택한 필터 조건에 맞는 질문이 {num_questions}개 이상 필요합니다 (Need at least {num_questions} questions). (현재 (Current): {len(filtered_questions)}개)")
+                            st.info("💡 '전체' 카테고리로 시도하거나 필터를 조정해보세요 (Try 'All' category or adjust filters).")
                     except Exception as e:
-                        st.error(f"모의 면접을 시작하는 중 오류가 발생했습니다: {str(e)}")
-                        st.info("면접 질문 데이터베이스를 확인하세요.")
+                        st.error(f"모의 면접을 시작하는 중 오류가 발생했습니다 (Error starting mock interview): {str(e)}")
+                        st.info("면접 질문 데이터베이스를 확인하세요 (Please check interview questions database).")
 
-                st.info("👆 버튼을 눌러 모의 면접을 시작하세요")
+                st.info("👆 버튼을 눌러 모의 면접을 시작하세요 (Click the button above to start mock interview)")
 
             else:
                 # 진행 상황 표시
                 progress = (st.session_state.interview_current_index) / len(st.session_state.interview_questions)
                 st.progress(progress)
-                st.caption(f"진행 상황: {st.session_state.interview_current_index}/{len(st.session_state.interview_questions)} 질문 완료")
+                st.caption(f"진행 상황 (Progress): {st.session_state.interview_current_index}/{len(st.session_state.interview_questions)} 질문 완료 (questions completed)")
 
                 # 모든 질문 완료 체크
                 if st.session_state.interview_current_index >= len(st.session_state.interview_questions):
-                    st.success("🎉 모든 질문을 완료했습니다!")
-                    st.info("👉 오른쪽에서 최종 결과를 확인하세요")
+                    st.success("🎉 모든 질문을 완료했습니다! (All questions completed!)")
+                    st.info("👉 오른쪽에서 최종 결과를 확인하세요 (Check final results on the right)")
                 else:
                     # 현재 질문 표시
                     current_question = st.session_state.interview_questions[st.session_state.interview_current_index]
 
-                    st.subheader(f"🎯 질문 {st.session_state.interview_current_index + 1}/{len(st.session_state.interview_questions)}")
+                    st.subheader(f"🎯 질문 (Question) {st.session_state.interview_current_index + 1}/{len(st.session_state.interview_questions)}")
                     st.info(current_question['question'])
-                    st.caption(f"💬 한국어: {current_question['question_ko']}")
+                    st.caption(f"💬 한국어 (Korean): {current_question['question_ko']}")
 
                     # 질문 정보
                     col_info1, col_info2, col_info3 = st.columns(3)
@@ -543,10 +544,10 @@ with tab2:
                     with col_info2:
                         st.caption(f"📊 {current_question['difficulty']}")
                     with col_info3:
-                        st.caption(f"⏱️ {current_question['ideal_duration']}초")
+                        st.caption(f"⏱️ {current_question['ideal_duration']}초 (sec)")
 
                     # 팁
-                    with st.expander("💡 답변 팁"):
+                    with st.expander("💡 답변 팁 (Answer Tips)"):
                         for tip in current_question.get('tips', []):
                             st.markdown(f"- {tip}")
 
@@ -554,20 +555,20 @@ with tab2:
 
         # 오디오 녹음/업로드 (세션 활성화되고 아직 질문이 남은 경우)
         if st.session_state.interview_session_active and st.session_state.interview_current_index < len(st.session_state.interview_questions):
-            st.subheader("🎙️ 답변 녹음")
+            st.subheader("🎙️ 답변 녹음 (Record Answer)")
 
             interview_audio_source = st.radio(
-                "입력 방식",
-                ["파일 업로드", "녹음하기"],
+                "입력 방식 (Input Method)",
+                ["파일 업로드 (File Upload)", "녹음하기 (Record)"],
                 horizontal=True,
                 key="interview_audio_source"
             )
 
             interview_audio_file = None
 
-            if interview_audio_source == "파일 업로드":
+            if "파일 업로드" in interview_audio_source or "File Upload" in interview_audio_source:
                 uploaded_interview_file = st.file_uploader(
-                    "오디오 파일을 업로드하세요",
+                    "오디오 파일을 업로드하세요 (Upload audio file)",
                     type=['mp3', 'wav', 'm4a', 'ogg'],
                     key="interview_audio_upload"
                 )
@@ -575,7 +576,7 @@ with tab2:
                     interview_audio_file = uploaded_interview_file
                     st.audio(uploaded_interview_file, format='audio/wav')
             else:
-                st.info("🎤 아래 버튼을 눌러 녹음을 시작하세요")
+                st.info("🎤 아래 버튼을 눌러 녹음을 시작하세요 (Click the button below to start recording)")
 
                 interview_audio_bytes = audio_recorder(
                     text="🎙️ 녹음 시작/중지",
@@ -587,7 +588,7 @@ with tab2:
                 )
 
                 if interview_audio_bytes:
-                    st.success("✅ 녹음 완료!")
+                    st.success("✅ 녹음 완료! (Recording Complete!)")
                     st.audio(interview_audio_bytes, format='audio/wav')
 
                     with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_audio:
@@ -596,7 +597,7 @@ with tab2:
 
             # 분석 버튼
             interview_analyze_button = st.button(
-                "🔍 답변 분석 시작",
+                "🔍 답변 분석 시작 (Start Answer Analysis)",
                 type="primary",
                 disabled=(interview_audio_file is None),
                 use_container_width=True,
@@ -609,16 +610,16 @@ with tab2:
         # 새로운 연습 시작 버튼 (세션 활성화된 경우)
         if st.session_state.interview_session_active:
             st.divider()
-            if st.button("🔄 새로운 연습 시작", key="reset_interview"):
+            if st.button("🔄 새로운 연습 시작 (Start New Practice)", key="reset_interview"):
                 reset_interview_session()
                 st.rerun()
 
     with interview_col2:
-        st.header("📊 분석 결과")
+        st.header("📊 분석 결과 (Analysis Results)")
 
         # 분석 실행
         if interview_analyze_button and interview_audio_file:
-            with st.spinner("AI가 면접 답변을 분석하고 있습니다..."):
+            with st.spinner("AI가 면접 답변을 분석하고 있습니다 (AI is analyzing your interview answer)..."):
                 current_question = st.session_state.interview_questions[st.session_state.interview_current_index]
 
                 # 파일 경로 처리
@@ -645,29 +646,29 @@ with tab2:
                     })
 
                     # 결과 표시
-                    st.success("✅ 분석 완료!")
+                    st.success("✅ 분석 완료! (Analysis Complete!)")
 
                     # 인식된 텍스트
-                    st.subheader("🗣️ 답변 내용")
+                    st.subheader("🗣️ 답변 내용 (Answer Transcription)")
                     st.code(result['transcription'], language=None)
 
                     # 전체 점수
-                    st.subheader("🎯 종합 점수")
+                    st.subheader("🎯 종합 점수 (Overall Score)")
                     overall_score = result['overall_score']
                     score_color = "🟢" if overall_score >= 80 else "🟡" if overall_score >= 60 else "🔴"
                     st.markdown(f"### {score_color} {overall_score:.1f}점")
                     st.progress(overall_score / 100)
 
                     # 세부 점수
-                    st.subheader("📊 세부 점수")
+                    st.subheader("📊 세부 점수 (Detailed Scores)")
                     score_cols = st.columns(5)
 
                     scores_info = [
-                        ("발음", result['scores']['pronunciation'], "🗣️"),
-                        ("내용", result['scores']['content'], "📝"),
-                        ("구조", result['scores']['structure'], "🏗️"),
-                        ("문법", result['scores']['grammar'], "✍️"),
-                        ("시간", result['scores']['duration'], "⏱️")
+                        ("발음 (Pronunciation)", result['scores']['pronunciation'], "🗣️"),
+                        ("내용 (Content)", result['scores']['content'], "📝"),
+                        ("구조 (Structure)", result['scores']['structure'], "🏗️"),
+                        ("문법 (Grammar)", result['scores']['grammar'], "✍️"),
+                        ("시간 (Duration)", result['scores']['duration'], "⏱️")
                     ]
 
                     for col, (label, score, emoji) in zip(score_cols, scores_info):
@@ -681,14 +682,14 @@ with tab2:
                     st.divider()
 
                     # 피드백
-                    st.subheader("💬 AI 피드백")
+                    st.subheader("💬 AI 피드백 (AI Feedback)")
                     st.markdown(result['feedback'])
 
                     # Filler words
                     if result['filler_words']['count'] > 0:
                         st.divider()
-                        st.subheader("🔤 Filler Words 분석")
-                        st.caption(f"총 {result['filler_words']['count']}개 발견 (밀도: {result['filler_words']['density']:.1f}%)")
+                        st.subheader("🔤 Filler Words 분석 (Filler Words Analysis)")
+                        st.caption(f"총 (Total) {result['filler_words']['count']}개 발견 (found) (밀도 (Density): {result['filler_words']['density']:.1f}%)")
 
                         filler_words_list = [f"{word}: {count}회" for word, count in result['filler_words']['words'].items()]
                         st.write(", ".join(filler_words_list))
@@ -696,20 +697,20 @@ with tab2:
                     # 개선 제안
                     if result['improvements']:
                         st.divider()
-                        st.subheader("💡 개선 제안")
+                        st.subheader("💡 개선 제안 (Improvement Suggestions)")
                         for improvement in result['improvements']:
                             st.markdown(f"- {improvement}")
 
                     # 다음 질문으로 이동 (모의 면접 모드)
-                    if interview_practice_mode == "모의 면접 (3-5문)":
+                    if "모의 면접" in interview_practice_mode or "Mock Interview" in interview_practice_mode:
                         st.divider()
                         st.session_state.interview_current_index += 1
 
                         if st.session_state.interview_current_index < len(st.session_state.interview_questions):
-                            if st.button("➡️ 다음 질문으로", type="primary", use_container_width=True, key="next_question"):
+                            if st.button("➡️ 다음 질문으로 (Next Question)", type="primary", use_container_width=True, key="next_question"):
                                 st.rerun()
                         else:
-                            st.success("🎉 모든 질문을 완료했습니다!")
+                            st.success("🎉 모든 질문을 완료했습니다! (All questions completed!)")
 
                             # 히스토리에 추가
                             st.session_state.interview_history.append({
@@ -728,16 +729,16 @@ with tab2:
                         })
 
                 except Exception as e:
-                    st.error(f"분석 중 오류 발생: {e}")
-                    st.info("오디오 파일 형식을 확인해주세요.")
+                    st.error(f"분석 중 오류 발생 (Error during analysis): {e}")
+                    st.info("오디오 파일 형식을 확인해주세요 (Please check audio file format).")
 
                 finally:
                     if cleanup_needed and os.path.exists(tmp_path):
                         os.remove(tmp_path)
 
         # 최종 결과 대시보드 (모의 면접 완료 시)
-        elif st.session_state.interview_session_active and interview_practice_mode == "모의 면접 (3-5문)" and st.session_state.interview_current_index >= len(st.session_state.interview_questions):
-            st.subheader("📈 최종 결과 대시보드")
+        elif st.session_state.interview_session_active and ("모의 면접" in interview_practice_mode or "Mock Interview" in interview_practice_mode) and st.session_state.interview_current_index >= len(st.session_state.interview_questions):
+            st.subheader("📈 최종 결과 대시보드 (Final Results Dashboard)")
 
             if st.session_state.interview_results:
                 # 평균 점수
@@ -745,38 +746,38 @@ with tab2:
                 avg_score = sum(all_scores) / len(all_scores)
 
                 score_color = "🟢" if avg_score >= 80 else "🟡" if avg_score >= 60 else "🔴"
-                st.markdown(f"### {score_color} 평균 점수: {avg_score:.1f}점")
+                st.markdown(f"### {score_color} 평균 점수 (Average Score): {avg_score:.1f}점")
                 st.progress(avg_score / 100)
 
                 st.divider()
 
                 # 각 질문별 점수
-                st.subheader("📝 질문별 상세 점수")
+                st.subheader("📝 질문별 상세 점수 (Detailed Scores by Question)")
                 for i, item in enumerate(st.session_state.interview_results):
-                    with st.expander(f"질문 {i+1}: {item['question']['question'][:50]}..."):
+                    with st.expander(f"질문 (Question) {i+1}: {item['question']['question'][:50]}..."):
                         result = item['result']
 
-                        st.caption(f"**종합 점수:** {result['overall_score']:.1f}점")
+                        st.caption(f"**종합 점수 (Overall Score):** {result['overall_score']:.1f}점")
 
                         score_detail_cols = st.columns(5)
                         scores = [
-                            ("발음", result['scores']['pronunciation']),
-                            ("내용", result['scores']['content']),
-                            ("구조", result['scores']['structure']),
-                            ("문법", result['scores']['grammar']),
-                            ("시간", result['scores']['duration'])
+                            ("발음 (Pronunciation)", result['scores']['pronunciation']),
+                            ("내용 (Content)", result['scores']['content']),
+                            ("구조 (Structure)", result['scores']['structure']),
+                            ("문법 (Grammar)", result['scores']['grammar']),
+                            ("시간 (Duration)", result['scores']['duration'])
                         ]
 
                         for col, (label, score) in zip(score_detail_cols, scores):
                             with col:
                                 st.caption(f"{label}: {score:.0f}")
 
-                        st.caption(f"**답변:** {result['transcription'][:100]}...")
+                        st.caption(f"**답변 (Answer):** {result['transcription'][:100]}...")
 
                 st.divider()
 
                 # 평균 세부 점수
-                st.subheader("📊 평균 세부 점수")
+                st.subheader("📊 평균 세부 점수 (Average Detailed Scores)")
                 avg_scores_cols = st.columns(5)
 
                 avg_pronunciation = sum(r['result']['scores']['pronunciation'] for r in st.session_state.interview_results) / len(st.session_state.interview_results)
@@ -786,11 +787,11 @@ with tab2:
                 avg_duration = sum(r['result']['scores']['duration'] for r in st.session_state.interview_results) / len(st.session_state.interview_results)
 
                 avg_scores_data = [
-                    ("발음", avg_pronunciation, "🗣️"),
-                    ("내용", avg_content, "📝"),
-                    ("구조", avg_structure, "🏗️"),
-                    ("문법", avg_grammar, "✍️"),
-                    ("시간", avg_duration, "⏱️")
+                    ("발음 (Pronunciation)", avg_pronunciation, "🗣️"),
+                    ("내용 (Content)", avg_content, "📝"),
+                    ("구조 (Structure)", avg_structure, "🏗️"),
+                    ("문법 (Grammar)", avg_grammar, "✍️"),
+                    ("시간 (Duration)", avg_duration, "⏱️")
                 ]
 
                 for col, (label, score, emoji) in zip(avg_scores_cols, avg_scores_data):
@@ -799,14 +800,14 @@ with tab2:
 
                 # 강점과 약점
                 st.divider()
-                st.subheader("💪 강점 및 개선 영역")
+                st.subheader("💪 강점 및 개선 영역 (Strengths & Areas for Improvement)")
 
                 scores_dict = {
-                    "발음": avg_pronunciation,
-                    "내용": avg_content,
-                    "구조": avg_structure,
-                    "문법": avg_grammar,
-                    "시간 관리": avg_duration
+                    "발음 (Pronunciation)": avg_pronunciation,
+                    "내용 (Content)": avg_content,
+                    "구조 (Structure)": avg_structure,
+                    "문법 (Grammar)": avg_grammar,
+                    "시간 관리 (Time Management)": avg_duration
                 }
 
                 max_score_area = max(scores_dict, key=scores_dict.get)
@@ -814,14 +815,14 @@ with tab2:
 
                 strength_col, weakness_col = st.columns(2)
                 with strength_col:
-                    st.success(f"**강점:** {max_score_area} ({scores_dict[max_score_area]:.1f}점)")
+                    st.success(f"**강점 (Strength):** {max_score_area} ({scores_dict[max_score_area]:.1f}점)")
                 with weakness_col:
-                    st.warning(f"**개선 필요:** {min_score_area} ({scores_dict[min_score_area]:.1f}점)")
+                    st.warning(f"**개선 필요 (Needs Improvement):** {min_score_area} ({scores_dict[min_score_area]:.1f}점)")
 
         elif not st.session_state.interview_session_active:
-            st.info("👈 왼쪽에서 질문을 선택하세요")
+            st.info("👈 왼쪽에서 질문을 선택하세요 (Select a question on the left)")
         elif interview_audio_file is None:
-            st.info("🎙️ 왼쪽에서 답변을 녹음하세요")
+            st.info("🎙️ 왼쪽에서 답변을 녹음하세요 (Record your answer on the left)")
 
     # 푸터
     st.divider()
@@ -829,7 +830,7 @@ with tab2:
 
     # 면접 히스토리
     if st.session_state.interview_history:
-        with st.expander("📚 최근 면접 기록"):
+        with st.expander("📚 최근 면접 기록 (Recent Interview History)"):
             for i, record in enumerate(reversed(st.session_state.interview_history[-5:])):
-                mode_text = "모의 면접" if record['mode'] == 'mock' else "단일 질문"
-                st.text(f"{len(st.session_state.interview_history) - i}. {mode_text} ({record['num_questions']}문) - 평균: {record['overall_score']:.1f}점")
+                mode_text = "모의 면접 (Mock Interview)" if record['mode'] == 'mock' else "단일 질문 (Single Question)"
+                st.text(f"{len(st.session_state.interview_history) - i}. {mode_text} ({record['num_questions']}문) - 평균 (Avg): {record['overall_score']:.1f}점")
